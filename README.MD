@@ -1,9 +1,11 @@
 ### Fundamentos Bases de datos
 
-**1.) Propietarios:** Miguel Angel Rico Garcia y Sergio David Paez Suarez.
+**1.) Propietarios:** 
+Juan Camilo Ramírez Rátiva - 20181020089
+Miguel Ángel Rico García - 20191020107
+Sergio David Paez Suarez -20191020167
+Lindsey Katherine Camargo Beltrán - 20172020037
+Einar Nayib Moreno Bustos - 20152020401
 
-**2.) Descripcion:** Repositorio de trabajo para los proyectos del curso de fundamentos de bases de datos.
-
-**3.)Instalacion de los proyectos:**.
-
-**4.)Uso de los proyectos**.
+**2.) Descripcion:** una aplicación de escritorio con soporte de bases de datos relacional para
+administrar el proceso de asignación de citas médicas de una EPS.
