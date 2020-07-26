@@ -3,7 +3,7 @@
 **1.) Propietarios:** 
 Juan Camilo Ramírez Rátiva - 20181020089
 
-Miguel Ángel Rico García - 20191020107ç
+Miguel Ángel Rico García - 20191020107
 
 Sergio David Paez Suarez -20191020167
 
