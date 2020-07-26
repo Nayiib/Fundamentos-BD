@@ -1,4 +1,4 @@
-package view;
+package View;
 
 //Elementos Graficos
 import javax.swing.JFrame;
