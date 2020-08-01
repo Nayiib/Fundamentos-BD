@@ -4,18 +4,17 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DateFormat;
-import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.text.ParseException;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 public class FrameEliminarCita extends JFrame {
 
@@ -42,10 +41,12 @@ public class FrameEliminarCita extends JFrame {
         private JLabel titulo;
         private JLabel idUsuario;
         private JLabel fechaCita;
-        private JTextField textFieldId;
+        private JFormattedTextField textFieldId;
         private JFormattedTextField textFieldDate;
         private JButton botonConsultar;
         private JButton botonConfirmar;
+        private MaskFormatter formatterDate = null;
+        private MaskFormatter formatterId = null;
 
         public Panel() {
             setBorder(BorderFactory.createStrokeBorder(new BasicStroke(7.0f)));
@@ -57,8 +58,14 @@ public class FrameEliminarCita extends JFrame {
             titulo = new JLabel("ELIMINAR UNA CITA");
             idUsuario = new JLabel("Identificación del usuario");
             fechaCita = new JLabel("Fecha de la cita");
-            textFieldId = new JTextField("id");
-            textFieldDate = new JFormattedTextField(DateFormat.getDateInstance(DateFormat.SHORT));
+            try {
+                formatterDate = new MaskFormatter("##/##/####");
+                formatterId = new MaskFormatter("##########");
+                textFieldDate = new JFormattedTextField(formatterDate);
+                textFieldId = new JFormattedTextField(formatterId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             botonConsultar = new JButton("Consultar");
             botonConfirmar = new JButton("Confirmar");
             /**
@@ -68,19 +75,22 @@ public class FrameEliminarCita extends JFrame {
             titulo.setLocation(20, 20);
             titulo.setFont(new Font("Comic Sans", Font.BOLD, 45));
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
+
             idUsuario.setSize(330, 70);
             idUsuario.setLocation(10, 150);
             idUsuario.setFont(new Font("font", Font.BOLD, 25));
             idUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+
             fechaCita.setSize(330, 70);
             fechaCita.setLocation(10, 230);
             fechaCita.setFont(new Font("font", Font.BOLD, 25));
             fechaCita.setHorizontalAlignment(SwingConstants.CENTER);
+
             textFieldId.setSize(250, 40);
             textFieldId.setLocation(360, 165);
             textFieldId.setFont(new Font("font", Font.BOLD, 25));
             textFieldId.setHorizontalAlignment(SwingConstants.CENTER);
-            textFieldDate.setValue(new Date());
+
             textFieldDate.setSize(250, 40);
             textFieldDate.setLocation(360, 245);
             textFieldDate.setFont(new Font("font", Font.BOLD, 25));
