@@ -6,9 +6,18 @@ import java.sql.SQLException;
 
 public class AfiliadoController extends Controller {
     
-    public AfiliadoController(){
+    private AfiliadoController(){
        super(); 
        
+    }
+    
+    private static AfiliadoController afiliado;
+    
+    public static AfiliadoController getReference(){
+        if(afiliado == null){
+            afiliado = new AfiliadoController();
+        }
+        return afiliado;
     }
     
     public void crear(long kEmpresa,String nombre,String direccion,long telefono){

@@ -11,7 +11,7 @@ public class Prototipos {
         Ventana.setVisible(true);
         Ventana.setLocationRelativeTo(null);*/
         
-        AfiliadoController test = new AfiliadoController();
+        AfiliadoController test = AfiliadoController.getReference();
         
     }
     
