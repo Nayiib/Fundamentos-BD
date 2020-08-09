@@ -1,10 +1,6 @@
-package prototipos;
 
-/**
- *
- * @author katht
- */
 import controllers.*;
+
 public class Prototipos {
 
     /**
@@ -17,8 +13,6 @@ public class Prototipos {
         
         AfiliadoController test = new AfiliadoController();
         
-        test.crear(133, "Empresa1", "Donde sea otra vez", 1234);
-        test.cerrarConexion();
     }
     
 }

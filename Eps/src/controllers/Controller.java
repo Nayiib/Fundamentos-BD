@@ -2,10 +2,10 @@ package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ignore.Keys;
 
 
 public class Controller {
@@ -21,7 +21,7 @@ public class Controller {
 
     public void establecerConexion() throws SQLException {
         try {
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/algebra", "postgres", "Tintaculta23");
+            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/algebra", Keys.user,Keys.password);
             System.out.println("Conexion a la base de datos exitosa " + conexion.getMetaData().getURL());
         } catch (SQLException exception) {
             System.out.println("Error en la base de datos ");
