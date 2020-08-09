@@ -16,17 +16,18 @@ import java.text.ParseException;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
-public class FrameEliminarCita extends JFrame {
+public class EliminarCita extends JFrame {
 
     private Panel panel;
 
-    public FrameEliminarCita() {
+    public EliminarCita() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Eliminar Cita");
         setSize(new Dimension(660, 475));
         GenerarPanel();
         setVisible(true);
         setLocationRelativeTo(null);
+        pack();
     }
 
     public void GenerarPanel() {
