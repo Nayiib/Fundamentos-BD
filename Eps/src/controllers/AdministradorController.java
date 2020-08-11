@@ -21,13 +21,13 @@ public class AdministradorController extends Controller {
         return administrador;
     }
     
-    public ResultSet getAfiliado(long id){
+    public ResultSet getAfiliado(String id){
           ResultSet user = null;
         
         try {
             String query = "SELECT * FROM Afiliado_Beneficiario WHERE IdCliente = ?;";
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setLong(1, id);
+            ps.setString(1, id);
             user = ps.executeQuery();
             
             System.out.println(user);
@@ -39,13 +39,13 @@ public class AdministradorController extends Controller {
         return user;
     }
     
-    public ResultSet getMedico(long id){
+    public ResultSet getMedico(String id){
           ResultSet user = null;
         
         try {
             String query = "SELECT * FROM Medico WHERE IdCliente = ?;";
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setLong(1, id);
+            ps.setString(1, id);
             user = ps.executeQuery();
             
             System.out.println(user);
