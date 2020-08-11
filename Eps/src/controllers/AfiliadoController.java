@@ -6,11 +6,21 @@ import java.sql.SQLException;
 
 public class AfiliadoController extends Controller {
 
-    public AfiliadoController() {
+    private static AfiliadoController afiliado;
+
+    private AfiliadoController() {
         super();
     }
 
+    public static AfiliadoController getReference() {
+        if (afiliado == null) {
+            afiliado = new AfiliadoController();
+        }
+        return afiliado;
+    }
+
     public void cancelarCita(long iDUsuario, long iDCita, Date fechaCita) {
+
         try {
             String consulta = "DELETE FROM cita WHERE k_cita = ? AND f_cita = ? AND k_numeroDocumento = ?;";
             PreparedStatement st = conexion.prepareStatement(consulta);

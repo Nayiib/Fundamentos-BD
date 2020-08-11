@@ -1,30 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prototipos;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
+
+import controllers.AdministradorController;
+
 
 public class IniciarSesion extends JFrame{
     
     public JPanel panel;
+    private AdministradorController administrador;
     
     public IniciarSesion(){
         initCompo();
         mostrar();
+        administrador = AdministradorController.getReference();
     }
     
     public void initCompo(){
@@ -43,15 +45,14 @@ public class IniciarSesion extends JFrame{
         Titulo.setForeground(new Color(21, 67, 96));
         panel.add(Titulo);
         
-        JLabel TipoD = new JLabel("Tipo identificación *");
+        JLabel TipoD = new JLabel("Tipo");
         TipoD.setBounds(100, 90, 300, 30);
         TipoD.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(TipoD);
         
-        JComboBox MTipo = new JComboBox();
-        MTipo.addItem("Cédula");
-        MTipo.addItem("Cédula de extrangeria");
-        MTipo.addItem("Pasaporte");
+        JComboBox<String> MTipo = new JComboBox<>();
+        MTipo.addItem("Medico");
+        MTipo.addItem("Afiliado");
         MTipo.setBounds(305, 95, 200, 20);
         MTipo.setBackground(Color.white);
         panel.add(MTipo);
@@ -73,24 +74,32 @@ public class IniciarSesion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String Id = CID.getText();
-                if(Id.equals("123")){
-                    InterfazAB AB = new InterfazAB();
-                    AB.setVisible(true);
-                    AB.setLocationRelativeTo(null);
+                String tipo = String.valueOf(MTipo.getSelectedItem());
+                
+                if(tipo.equals("Medico")){
+                    if(administrador.getMedico(Id) != null){
+                        InterfazAB AB = new InterfazAB();
+                        AB.setVisible(true);
+                        AB.setLocationRelativeTo(null);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error Autenticacion", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                if(Id.equals("456")){
-                    InterfazAdmi Admi = new InterfazAdmi();
-                    Admi.setVisible(true);
-                    Admi.setLocationRelativeTo(null);
+                
+                if(tipo.equals("Afiliado")){
+                    if(administrador.getAfiliado(Id) != null){
+                        InterfazAB AB = new InterfazAB();
+                        AB.setVisible(true);
+                        AB.setLocationRelativeTo(null);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error Autenticacion", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                if(Id.equals("789")){
-                    InterfazMedico medico = new InterfazMedico();
-                    medico.setVisible(true);
-                    medico.setLocationRelativeTo(null);
-                }
+                
             }	
         });
  
     }
-    
+
+
 }
