@@ -17,7 +17,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
 import controllers.Controller;
-import java.util.Locale;
 
 public class IniciarSesion extends JFrame {
 

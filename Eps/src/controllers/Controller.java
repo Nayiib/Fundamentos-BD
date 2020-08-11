@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import ignore.Keys;
 import java.sql.PreparedStatement;
 
+
 public class Controller {
 
     protected Connection conexion;
@@ -44,7 +45,7 @@ public class Controller {
             System.out.println("Fallo: " + ex);
         }
     }
-
+    
     public long getUser(String tabla, String tipo, long id) {
         ResultSet user = null;
         long comparacion = 0;
@@ -68,5 +69,6 @@ public class Controller {
 
         return comparacion;
     }
+
 
 }
