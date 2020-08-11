@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package prototipos;
+package Gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,20 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author katht
- */
-public class AgendaM2 extends JFrame{
+
+public class AgendaM1 extends JFrame{
     public JPanel panel;
     
-    public AgendaM2(){
+    public AgendaM1(){
         initCompo();
         mostrar();
     }
     
     public void initCompo(){
-        setSize(600,350); 
+        setSize(600,250); 
         setTitle("Crear una agenda");
         panel = new JPanel();
         panel.setLayout(null);
@@ -39,51 +31,42 @@ public class AgendaM2 extends JFrame{
     }
     
     public void mostrar(){
-        JLabel Titulo = new JLabel("Agregar una cita", SwingConstants.CENTER);
+        JLabel Titulo = new JLabel("Crear una agenda", SwingConstants.CENTER);
         Titulo.setBounds(0, 10, 600, 30);
         Titulo.setFont(new Font("Serif", Font.BOLD, 22)); 
         Titulo.setForeground(new Color(21, 67, 96));
         panel.add(Titulo);
         
-        JLabel MAgen = new JLabel("Digite el dia");
+        JLabel MAgen = new JLabel("Digite el mes");
         MAgen.setBounds(100, 90, 100, 30);
         MAgen.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(MAgen);
         
         JTextField CMAgen = new JTextField();
-        CMAgen.setBounds(325, 95, 180, 20);
+        CMAgen.setBounds(305, 95, 200, 20);
         panel.add(CMAgen);
         
-        JLabel AAgen = new JLabel("Seleccione la especialidad");
+        JLabel AAgen = new JLabel("Digite el año");
         AAgen.setBounds(100, 120, 300, 30);
         AAgen.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(AAgen);
         
         JTextField CAAgen = new JTextField();
-        CAAgen.setBounds(325, 125, 180, 20);
+        CAAgen.setBounds(305, 125, 200, 20);
         panel.add(CAAgen);
         
-        JLabel TiCita = new JLabel("Seleccione el tipo de cita");
-        TiCita.setBounds(100, 150, 300, 30);
-        TiCita.setFont(new Font("Serif", Font.BOLD, 14)); 
-        panel.add(TiCita);
-        
-        JTextField CTiCita = new JTextField();
-        CTiCita.setBounds(325, 155, 180, 20);
-        panel.add(CTiCita);
-        
-        JLabel HICita = new JLabel("Seleccione la hora inicial de la cita");
-        HICita.setBounds(100, 180, 400, 30);
-        HICita.setFont(new Font("Serif", Font.BOLD, 14)); 
-        panel.add(HICita);
-        
-        JTextField CHICita = new JTextField();
-        CHICita.setBounds(325, 185, 180, 20);
-        panel.add(CHICita);
-        
         JButton Continuar = new JButton("Continuar");
-        Continuar.setBounds(250, 245, 100, 30);
+        Continuar.setBounds(250, 165, 100, 30);
         panel.add(Continuar);
+        
+        Continuar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AgendaM2 Cont = new AgendaM2();
+                Cont.setVisible(true);
+                Cont.setLocationRelativeTo(null);  
+            }	
+        });
         
     }
 }

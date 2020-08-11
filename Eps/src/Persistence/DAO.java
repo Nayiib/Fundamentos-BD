@@ -1,4 +1,4 @@
-package controllers;
+package Persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,12 +8,12 @@ import ignore.Keys;
 import java.sql.PreparedStatement;
 
 
-public class Controller {
+public class DAO {
 
     protected Connection conexion;
-    private static Controller controlador;
+    private static DAO controlador;
 
-    protected Controller() {
+    protected DAO() {
         try {
             establecerConexion();
         } catch (SQLException ex) {
@@ -21,9 +21,9 @@ public class Controller {
         }
     }
 
-    public static Controller getReference() {
+    public static DAO getReference() {
         if (controlador == null) {
-            controlador = new Controller();
+            controlador = new DAO();
         }
         return controlador;
     }
@@ -49,6 +49,7 @@ public class Controller {
     public long getUser(String tabla, String tipo, long id) {
         ResultSet user = null;
         long comparacion = 0;
+        String comparacionTipo = "";
 
         try {
             String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";

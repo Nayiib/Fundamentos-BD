@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package prototipos;
+package Gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,10 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author katht
- */
+
 public class SolicitarCita extends JFrame{
     
     public JPanel panel;

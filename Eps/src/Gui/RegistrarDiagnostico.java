@@ -1,4 +1,4 @@
-package prototipos;
+package Gui;
 
 //Elementos Graficos
 import javax.swing.JFrame;

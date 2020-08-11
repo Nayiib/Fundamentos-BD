@@ -1,4 +1,4 @@
-package prototipos;
+package Gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,17 +16,17 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
-import controllers.Controller;
+import Persistence.DAO;
 
 public class IniciarSesion extends JFrame {
 
     private JPanel panel;
-    private Controller controlador;
+    private DAO controlador;
 
     public IniciarSesion() {
         initCompo();
         mostrar();
-        controlador = Controller.getReference();
+        controlador = DAO.getReference();
 
     }
 
