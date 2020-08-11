@@ -18,10 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-/**
-Agregar_Ingresar_EPS
- * @author katht
- */
 public class IniciarSesion extends JFrame{
     
     public JPanel panel;
