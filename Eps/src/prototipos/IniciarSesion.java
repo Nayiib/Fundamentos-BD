@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prototipos;
 
 import java.awt.Color;
@@ -59,6 +54,13 @@ public class IniciarSesion extends JFrame{
         MTipo.setBounds(305, 95, 200, 20);
         MTipo.setBackground(Color.white);
         panel.add(MTipo);
+        
+        /*JComboBox tipoUsuario = new JComboBox();
+        MTipo.addItem("Afiliado/Beneficiario");
+        MTipo.addItem("Medico");
+        MTipo.setBounds(305, 95, 200, 20);
+        MTipo.setBackground(Color.white);
+        panel.add(tipoUsuario);*/
         
         JLabel ID = new JLabel("Número identificación *");
         ID.setBounds(100, 120, 300, 30);

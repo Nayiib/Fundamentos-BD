@@ -21,7 +21,7 @@ public class Controller {
 
     public void establecerConexion() throws SQLException {
         try {
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/algebra", Keys.user,Keys.password);
+            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/eps", Keys.user,Keys.password);
             System.out.println("Conexion a la base de datos exitosa " + conexion.getMetaData().getURL());
         } catch (SQLException exception) {
             System.out.println("Error en la base de datos ");
