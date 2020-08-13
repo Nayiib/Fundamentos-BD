@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-
 public class AgregarEspMedico extends JFrame{
     
    public JPanel panel;
