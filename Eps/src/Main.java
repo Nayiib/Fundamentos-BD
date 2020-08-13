@@ -1,4 +1,4 @@
-import Gui.IniciarSesion;
+import Gui.*;
 
 public class Main {
 

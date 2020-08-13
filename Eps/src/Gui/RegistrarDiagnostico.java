@@ -14,6 +14,8 @@ import java.awt.Font;
 //Eventos
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//Clase Dao
+import Persistence.MedicoDAO;
 
 public class RegistrarDiagnostico extends JFrame implements ActionListener {
     
@@ -23,12 +25,12 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
     private JPanel panel;
     private final int ancho = 600,alto = 685;
     private final String font = "Dosis";
+    private MedicoDAO medicoController = MedicoDAO.getReference();
     
     private void setElements(){
         //Configuracion panel
         panel = new JPanel();
         panel.setLayout(null);
-        panel.setBackground(new Color(91,190,192));
         panel.setSize(new Dimension(ancho,alto));
         panel.setLocation(0,0);
         
@@ -96,8 +98,6 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
         btnGuardar.setSize(new Dimension(85,35));
         btnGuardar.setFocusable(false);
         btnGuardar.setLocation((panel.getWidth() - btnGuardar.getWidth())/2,600);
-        btnGuardar.setForeground(Color.WHITE);
-        btnGuardar.setBackground(Color.BLACK);
         btnGuardar.addActionListener(this);
         
         //Agrego los elementos al panel y el panel a la ventana
@@ -127,7 +127,7 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        
+        System.out.println(txtDiagnostico.getText());
     }
     
 }
