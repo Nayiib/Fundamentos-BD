@@ -1,4 +1,4 @@
-package prototipos;
+package Gui;
 
 import java.awt.Color;
 import java.awt.Font;

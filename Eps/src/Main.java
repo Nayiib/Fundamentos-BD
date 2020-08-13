@@ -1,5 +1,4 @@
-
-import prototipos.IniciarSesion;
+import Gui.IniciarSesion;
 
 public class Main {
 

@@ -1,20 +1,20 @@
-package controllers;
+package Persistence;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AfiliadoController extends Controller {
+public class AfiliadoDAO extends DAO {
 
-    private static AfiliadoController afiliado;
+    private static AfiliadoDAO afiliado;
 
-    private AfiliadoController() {
+    private AfiliadoDAO() {
         super();
     }
 
-    public static AfiliadoController getReference() {
+    public static AfiliadoDAO getReference() {
         if (afiliado == null) {
-            afiliado = new AfiliadoController();
+            afiliado = new AfiliadoDAO();
         }
         return afiliado;
     }

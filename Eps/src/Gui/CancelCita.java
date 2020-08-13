@@ -1,4 +1,4 @@
-package prototipos;
+package Gui;
 
 import java.awt.BasicStroke;
 import java.awt.Dimension;
