@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 //Elementos decorativos
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,31 +24,33 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
     private JTextArea txtSintomas,txtDiagnostico,txtPreinscrpcion;
     private JLabel lNombre,lTitle,lMedico,lFecha,lHora;
     private JPanel panel;
-    private final int ancho = 600,alto = 685;
+    private final int ANCHO = 600,ALTO = 685;
     private final String font = "Dosis";
     private MedicoDAO medicoController = MedicoDAO.getReference();
-    
-    private void setElements(){
+    private long idCita;
+    private static long idRegistro = 1; 
+            
+    private void setElements(String nombrePaciente,String medico){
         //Configuracion panel
         panel = new JPanel();
         panel.setLayout(null);
-        panel.setSize(new Dimension(ancho,alto));
+        panel.setSize(new Dimension(ANCHO,ALTO));
         panel.setLocation(0,0);
         
         //Titulo del Frame
-        lTitle = new JLabel("Registro de diagnóstico médico");
+        lTitle = new JLabel("Registro de diagnóstico médico: ");
         lTitle.setFont(new Font(font,Font.BOLD,30));
         lTitle.setSize(new Dimension(550,43));
         lTitle.setLocation(15, 20);
         
         //Labels
-        lNombre = new JLabel("Nombre: ");
-        lNombre.setSize(new Dimension(100,25));
+        lNombre = new JLabel("Nombre: " + nombrePaciente);
+        lNombre.setSize(new Dimension(300,25));
         lNombre.setLocation(10,100);
         lNombre.setFont(new Font(font,Font.BOLD,15));
         //--------------------------------------------
-        lMedico = new JLabel("Medico a cargo: ");
-        lMedico.setSize(new Dimension(120,25));
+        lMedico = new JLabel("Medico a cargo: " + medico);
+        lMedico.setSize(new Dimension(300,25));
         lMedico.setLocation(10,130);
         lMedico.setFont(new Font(font,Font.BOLD,15));
         //--------------------------------------------
@@ -113,21 +116,30 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
         add(panel);
     }
     
-    public RegistrarDiagnostico(){
+    public RegistrarDiagnostico(String nombrePaciente,String medico,long idCita){
+        
+        this.idCita = idCita;
+        
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(new Dimension(ancho,alto));
-        setMinimumSize(new Dimension(ancho,alto));
-        setMaximumSize(new Dimension(ancho,alto));
+        setSize(new Dimension(ANCHO,ALTO));
+        setMinimumSize(new Dimension(ANCHO,ALTO));
+        setMaximumSize(new Dimension(ANCHO,ALTO));
         setResizable(false);
-        setElements();
+        setElements(nombrePaciente,medico);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.println(txtDiagnostico.getText());
+        medicoController.registrarDiagnostico(idRegistro,txtDiagnostico.getText(),(txtSintomas.getText() +", "+txtPreinscrpcion.getText()), this.idCita);
+        idRegistro++;
+        JOptionPane.showMessageDialog(null, "Datos guardados de forma exitosa", "Registro guardado", JOptionPane.DEFAULT_OPTION);
+        txtDiagnostico.setText("");
+        txtSintomas.setText("");
+        txtPreinscrpcion.setText("");
+    
     }
     
 }

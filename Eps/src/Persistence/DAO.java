@@ -46,7 +46,7 @@ public class DAO {
         }
     }
     
-    public long getUser(String tabla, String tipo, long id) {
+    public boolean getUser(String tabla, String tipo, long id) {
         ResultSet user = null;
         long comparacion = 0;
         String comparacionTipo = "";
@@ -60,15 +60,17 @@ public class DAO {
             user = st.executeQuery();
             while (user.next()) {
                 comparacion = user.getLong(2);
-                System.out.println(user.getStatement().toString());
-                System.out.println(comparacion);
+                comparacionTipo = user.getString(1);
+                if(comparacion == id && comparacionTipo.equals(tipo) ){
+                    return true;
+                }
             }
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
-        return comparacion;
+        return false;
     }
 
 

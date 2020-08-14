@@ -95,7 +95,7 @@ public class IniciarSesion extends JFrame {
                 String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
 
                 if (tipoUsuario.equals("Medico")) {
-                    if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id)) != 0) {
+                    if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
                         InterfazAB AB = new InterfazAB();
                         AB.setVisible(true);
@@ -105,7 +105,7 @@ public class IniciarSesion extends JFrame {
                     }
                     
                 } else {
-                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id)) != 0) {
+                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
                         InterfazMedico medico = new InterfazMedico();
                         medico.setVisible(true);
