@@ -1,5 +1,7 @@
 package Gui;
 
+import Gui.Medico.InterfazMedico;
+import Gui.Medico.MenuMedico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -97,20 +99,20 @@ public class IniciarSesion extends JFrame {
                 if (tipoUsuario.equals("Medico")) {
                     if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        InterfazAB AB = new InterfazAB();
-                        AB.setVisible(true);
-                        AB.setLocationRelativeTo(null);
-                    }else {
-                        JOptionPane.showMessageDialog(null, "Por favor asegurese que sus datos esten bien escritos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
-                    }
-                    
-                } else {
-                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
-                        IniciarSesion.this.setVisible(false);
                         InterfazMedico medico = new InterfazMedico();
                         medico.setVisible(true);
                         medico.setLocationRelativeTo(null);
 
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Por favor asegurese que sus datos esten bien escritos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
+                        IniciarSesion.this.setVisible(false);
+                        MenuMedico AB = new MenuMedico();
+                        AB.setVisible(true);
+                        AB.setLocationRelativeTo(null);
                     } else {
                         JOptionPane.showMessageDialog(null, "Por favor asegurese que sus datos esten bien escritos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
                     }

@@ -1,4 +1,4 @@
-package Gui;
+package Gui.Medico;
 
 //Elementos Graficos
 import javax.swing.JFrame;

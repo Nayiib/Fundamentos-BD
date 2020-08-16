@@ -2,7 +2,9 @@ package Persistence;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AfiliadoDAO extends DAO {
 
@@ -17,6 +19,21 @@ public class AfiliadoDAO extends DAO {
             afiliado = new AfiliadoDAO();
         }
         return afiliado;
+    }
+    
+    public void consultarCitas(long iDUsuario, Date fecha) throws SQLException{
+        String comandoSQL = "SELECT k_cita,f_cita FROM cita,afiliado_beneficiario " +
+                "WHERE cita.k_numerodocumentoab=afiliado_beneficiario.k_numerodocumento " +
+                "AND cita.f_cita='2020-10-21' " +
+                "AND afiliado_beneficiario.k_numerodocumento=123456789;";
+        PreparedStatement ps = conexion.prepareStatement(comandoSQL);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<String> nombresCines = new ArrayList<String>();
+        while (rs.next()) {
+            nombresCines.add(rs.getString("nombre"));
+        }
+//        return nombresCines;
+        
     }
 
     public void cancelarCita(long iDUsuario, long iDCita, Date fechaCita) {
