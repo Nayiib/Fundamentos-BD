@@ -1,7 +1,7 @@
 package Gui;
 
 import Gui.Medico.InterfazMedico;
-import Gui.Medico.MenuMedico;
+import Gui.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -99,7 +99,7 @@ public class IniciarSesion extends JFrame {
                 if (tipoUsuario.equals("Medico")) {
                     if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        InterfazMedico medico = new InterfazMedico();
+                        InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()));
                         medico.setVisible(true);
                         medico.setLocationRelativeTo(null);
 
@@ -110,7 +110,7 @@ public class IniciarSesion extends JFrame {
                 } else {
                     if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        MenuMedico AB = new MenuMedico();
+                        InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(Long.valueOf(CID.getText()));
                         AB.setVisible(true);
                         AB.setLocationRelativeTo(null);
                     } else {

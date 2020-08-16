@@ -1,4 +1,4 @@
-package Gui.Medico;
+package Gui.AfiliadoBeneficiario;
 
 import Gui.AfiliadoBeneficiario.CancelarCita;
 import Gui.AfiliadoBeneficiario.ConsultarCita;
@@ -15,12 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+public class InterfazAfiliadoBeneficiario extends JFrame {
 
-public class MenuMedico extends JFrame {
+    private JPanel panel;
+    private long iDAfiliadoRef;
 
-    public JPanel panel;
-
-    public MenuMedico() {
+    public InterfazAfiliadoBeneficiario(long iDAfiliado) {
+        iDAfiliadoRef = iDAfiliado;
         initCompo();
         mostrar();
     }
@@ -74,7 +75,7 @@ public class MenuMedico extends JFrame {
         CanCita.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CancelarCita cCita = new CancelarCita();
+                CancelarCita cCita = new CancelarCita(iDAfiliadoRef);
             }
         });
 
