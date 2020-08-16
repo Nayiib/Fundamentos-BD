@@ -16,13 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -38,7 +35,7 @@ public class CancelarCita extends JFrame {
 
     public CancelarCita(long iDAfiliado) {
         iDAfiliadoRef = iDAfiliado;
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Eliminar Cita");
         setSize(new Dimension(660, 475));
         GenerarPanel();
@@ -75,7 +72,6 @@ public class CancelarCita extends JFrame {
         public Panel() {
             setBorder(BorderFactory.createStrokeBorder(new BasicStroke(7.0f)));
             setPreferredSize(new Dimension(660, 475));
-            setAlwaysOnTop(true);
         }
 
         public void GenerarInterfaz() {
@@ -90,74 +86,54 @@ public class CancelarCita extends JFrame {
                 e.printStackTrace();
             }
             textFieldHoraCita = new JTextField();
-
             botonConsultar = new JButton("Consultar citas");
             botonVolver = new JButton("Volver");
             botonConfirmar = new JButton("Confirmar");
-
             citas = new JComboBox();
             DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
             listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
             citas.setRenderer(listRenderer);
             citas.addItemListener(this);
-
-            /**
-             * ***************************************************************************************************
-             */
             titulo.setSize(600, 100);
             titulo.setLocation(35, 0);
             titulo.setFont(new Font("font", Font.BOLD, 25));
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
-
             fechaCita.setSize(330, 70);
             fechaCita.setLocation(10, 110);
             fechaCita.setFont(new Font("font", Font.BOLD, 25));
             fechaCita.setHorizontalAlignment(SwingConstants.CENTER);
-
             elijaCita.setSize(330, 70);
             elijaCita.setLocation(10, 230);
             elijaCita.setFont(new Font("font", Font.BOLD, 25));
             elijaCita.setHorizontalAlignment(SwingConstants.CENTER);
-
             idCita.setSize(330, 70);
             idCita.setLocation(10, 310);
             idCita.setFont(new Font("font", Font.BOLD, 25));
             idCita.setHorizontalAlignment(SwingConstants.CENTER);
-
             textFieldDate.setSize(250, 40);
             textFieldDate.setLocation(360, 127);
             textFieldDate.setFont(new Font("font", Font.BOLD, 25));
             textFieldDate.setHorizontalAlignment(SwingConstants.CENTER);
-
             textFieldHoraCita.setSize(250, 40);
             textFieldHoraCita.setLocation(360, 327);
             textFieldHoraCita.setFont(new Font("font", Font.BOLD, 25));
             textFieldHoraCita.setHorizontalAlignment(SwingConstants.CENTER);
             textFieldHoraCita.setFocusable(false);
-
             botonConsultar.setSize(170, 35);
             botonConsultar.setLocation(400, 190);
             botonConsultar.setFont(new Font("font", Font.BOLD, 18));
-
             botonVolver.setSize(170, 35);
             botonVolver.setLocation(110, 410);
             botonVolver.setFont(new Font("font", Font.BOLD, 25));
-
             botonConfirmar.setSize(170, 35);
             botonConfirmar.setLocation(380, 410);
             botonConfirmar.setFont(new Font("font", Font.BOLD, 25));
-
             citas.setSize(250, 35);
             citas.setLocation(360, 247);
             citas.setFont(new Font("font", Font.BOLD, 18));
-
-            /**
-             * ***************************************************************************************************
-             */
             botonConsultar.addActionListener(this);
             botonVolver.addActionListener(this);
             botonConfirmar.addActionListener(this);
-
             add(titulo);
             add(fechaCita);
             add(elijaCita);
@@ -170,7 +146,6 @@ public class CancelarCita extends JFrame {
             add(citas);
         }
 
-        @Override
         public void paint(Graphics g) {
             super.paint(g);
             Graphics2D g2 = (Graphics2D) g;
@@ -179,7 +154,6 @@ public class CancelarCita extends JFrame {
             g.drawLine(0, 380, 660, 380);
         }
 
-        @Override
         public void actionPerformed(ActionEvent ae) {
             if (ae.getActionCommand().equals(botonConsultar.getActionCommand())) {
                 ArrayList<ArrayList> arreglo = new ArrayList<ArrayList>();
@@ -193,7 +167,8 @@ public class CancelarCita extends JFrame {
                 try {
                     arreglo = control.consultarCitas(iDAfiliadoRef, fechaSQL);
                     if (arreglo.get(0).isEmpty() && arreglo.get(1).isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "No se encontraron citas para la fecha ingresada", "Estado consulta", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "No se encontraron citas para la fecha ingresada", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                        textFieldHoraCita.setText(null);
                     } else {
                         ArrayList<Integer> arregloIds = new ArrayList<Integer>();
                         ArrayList<String> arregloTipos = new ArrayList<String>();
@@ -209,12 +184,21 @@ public class CancelarCita extends JFrame {
             } else if (ae.getActionCommand().equals(botonVolver.getActionCommand())) {
                 dispose();
             } else if (ae.getActionCommand().equals(botonConfirmar.getActionCommand())) {
-                control.cancelarCita(iDAfiliadoRef, iDAfiliadoRef, fechaSQL);
+                try {
+                    String[] split = citas.getSelectedItem().toString().split("    - - -");
+                    control.eliminarPago(Integer.valueOf(split[0]));
+                    control.eliminarRegistro(Integer.valueOf(split[0]));
+                    control.eliminarCita(iDAfiliadoRef, Integer.valueOf(split[0]));
+                    JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente", "Estado cancelación", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } catch (SQLException ex) {
+                    System.out.println("Fallo SQL: " + ex.getMessage());
+                }
             }
         }
 
         public void itemStateChanged(ItemEvent ie) {
-            if (citas.getItemCount()!=0) {
+            if (citas.getItemCount() != 0) {
                 try {
                     fechaUtil = formatterDateSQL.parse(textFieldDate.getText());
                     fechaSQL = new java.sql.Date(fechaUtil.getTime());
@@ -223,14 +207,11 @@ public class CancelarCita extends JFrame {
                 }
                 try {
                     String[] split = citas.getSelectedItem().toString().split("    - - -");
-                    System.out.println(Integer.valueOf(split[0]));
                     textFieldHoraCita.setText(String.valueOf(control.consultarHora(iDAfiliadoRef, fechaSQL, Integer.valueOf(split[0]))));
                 } catch (SQLException ex) {
                     System.out.println("Error SQL: " + ex.getMessage());
                 }
             }
-
         }
     }
-
 }
