@@ -74,5 +74,9 @@ public class DAO {
 
         return false;
     }
+    
+    public void registrarUsuario() throws SQLException{
+           String query = "INSERT INTO usuario VALUES()";
+    }
 
 }
