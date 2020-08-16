@@ -1,5 +1,6 @@
 package Persistence;
 
+import Models.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -45,38 +46,45 @@ public class DAO {
         }
     }
 
-    public boolean getUser(String tabla, String tipo, long id) {
-        ResultSet user = null;
+    public boolean getUser(String tabla, String tipo, long id) throws SQLException {
+        
+        String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setString(1, tipo);
+        st.setLong(2, id);
 
-        try {
-            String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";
-            PreparedStatement st = conexion.prepareStatement(consulta);
-            st.setString(1, tipo);
-            st.setLong(2, id);
+        ResultSet user = st.executeQuery();
+        while (user.next()) {
 
-            user = st.executeQuery();
-            while (user.next()) {
-                
-                if (tabla.equals("afiliado_beneficiario")) {
-                    if (user.getLong(2) == id && user.getString(1).equals(tipo) && user.getString(4).equals("Activo")) {
-                        return true;
-                    }
-                } else {
-                    if (user.getLong(2) == id && user.getString(1).equals(tipo)) {
-                        return true;
-                    }
+            if (tabla.equals("afiliado_beneficiario")) {
+                if (user.getLong(2) == id && user.getString(1).equals(tipo) && user.getString(4).equals("Activo")) {
+                    return true;
+                }
+            } else {
+                if (user.getLong(2) == id && user.getString(1).equals(tipo)) {
+                    return true;
                 }
             }
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
         }
 
         return false;
     }
-    
-    public void registrarUsuario() throws SQLException{
-           String query = "INSERT INTO usuario VALUES()";
+
+    public void registrarUsuario(Usuario usuario) throws SQLException {
+
+        String query = "INSERT INTO usuario VALUES(?,?,?,?,?,?,?)";
+        PreparedStatement st = conexion.prepareStatement(query);
+
+        st.setString(1, usuario.getTipoDocumento());
+        st.setLong(2, usuario.getNumeroDocumento());
+        st.setString(3, usuario.getNombreUsuario());
+        st.setString(4, usuario.getSexo());
+        st.setDate(5, usuario.getFechaNacimiento());
+        st.setLong(6, usuario.getTelefonoContacto());
+        st.setInt(7, usuario.getEpsKey());
+
+        st.execute();
     }
 
 }
