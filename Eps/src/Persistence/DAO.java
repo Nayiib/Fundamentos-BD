@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import ignore.Keys;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 
 public class DAO {
@@ -82,6 +81,9 @@ public class DAO {
         return false;
     }
 
+    public void registrarUsuario() throws SQLException {
+    }
+
     public void registrarAB(Afiliado ABReferencia) throws SQLException {
         String comandoSQL = ("INSERT INTO afiliado_beneficiario  VALUES (?, ?, ?, ?, ?, ?, ?)");
         PreparedStatement ps = conexion.prepareStatement(comandoSQL);
@@ -89,9 +91,19 @@ public class DAO {
         ps.setLong(2, ABReferencia.getNumeroDocumento());
         ps.setString(3, ABReferencia.getTipoAfiliacion());
         ps.setString(4, ABReferencia.getEstado());
-        ps.setInt(5, ABReferencia.getCategoria());
+        if (ABReferencia.getCategoria() == "A") {
+            ps.setInt(5, 1);
+        } else if (ABReferencia.getCategoria() == "B") {
+            ps.setInt(5, 2);
+        } else if (ABReferencia.getCategoria() == "C") {
+            ps.setInt(5, 3);
+        }
         ps.setString(6, ABReferencia.getTipoDocumentoAfiliado());
-        ps.setLong(7, ABReferencia.getNumeroDocumentoAfiliado());
+        if (ABReferencia.getNumeroDocumentoAfiliado() == 0) {
+            ps.setNull(7, java.sql.Types.INTEGER);
+        } else {
+            ps.setLong(7, ABReferencia.getNumeroDocumentoAfiliado());
+        }
         ps.execute();
     }
 }

@@ -1,6 +1,5 @@
 
-import Gui.*;
-import Gui.Admin.RegistrarABRico;
+import Gui.AfiliadoBeneficiario.RegistrarAB;
 
 public class Main {
 
@@ -8,7 +7,7 @@ public class Main {
 //        IniciarSesion Ventana = new IniciarSesion();
 //        Ventana.setVisible(true);
 //        Ventana.setLocationRelativeTo(null);
-        RegistrarABRico asd = new RegistrarABRico();
+        RegistrarAB asd = new RegistrarAB();
         asd.setVisible(true);
     }
 }
