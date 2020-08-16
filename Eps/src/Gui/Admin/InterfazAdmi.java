@@ -1,6 +1,6 @@
 package Gui.Admin;
 
-import Gui.Admin.RegistrarAB;
+import Gui.Admin.RegistrarABRico;
 import Gui.Admin.RegistrarMedico;
 import java.awt.Color;
 import java.awt.Font;
@@ -58,7 +58,7 @@ public class InterfazAdmi extends JFrame{
         RegisAB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegistrarAB IRegisAB = new RegistrarAB();
+                RegistrarABRico IRegisAB = new RegistrarABRico();
                 IRegisAB.setVisible(true);
                 IRegisAB.setLocationRelativeTo(null);
             }	
