@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class AfiliadoDAO extends DAO {
@@ -43,8 +44,8 @@ public class AfiliadoDAO extends DAO {
         return arregloTocho;
     }
 
-    public Date consultarHora(long iDUsuario, Date fecha, int iDCita) throws SQLException {
-        Date retorno=null;
+    public Time consultarHora(long iDUsuario, Date fecha, int iDCita) throws SQLException {
+        Time retorno = null;
         String comandoSQL = "SELECT h_inicial FROM cita,afiliado_beneficiario "
                 + "WHERE cita.k_numerodocumentoab=afiliado_beneficiario.k_numerodocumento "
                 + "AND f_cita = ? "
@@ -56,26 +57,30 @@ public class AfiliadoDAO extends DAO {
         ps.setInt(3, iDCita);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            retorno=rs.getDate("h_inicial");
+            retorno = rs.getTime("h_inicial");
         }
         return retorno;
     }
 
-    public void cancelarCita(long iDUsuario, long iDCita, Date fechaCita) {
-
-        try {
-            String consulta = "DELETE FROM cita WHERE k_cita = ? AND f_cita = ? AND k_numeroDocumento = ?;";
-            PreparedStatement st = conexion.prepareStatement(consulta);
-            st.setLong(1, iDCita);
-            st.setDate(2, fechaCita);
-            st.setLong(3, iDUsuario);
-
-            st.execute();
-
-        } catch (SQLException ex) {
-            System.out.println("Falló al intentar cancelar la cita: " + ex.getMessage());
-        }
-
+    public void eliminarCita(long iDUsuario, long iDCita) throws SQLException {
+        String consulta = "DELETE FROM cita WHERE k_cita = ? AND k_numeroDocumentoab = ?;";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setLong(1, iDCita);
+        st.setLong(2, iDUsuario);
+        st.executeUpdate();
     }
 
+    public void eliminarPago(long iDCita) throws SQLException {
+        String consulta = "DELETE FROM pago WHERE k_cita= ?;";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setLong(1, iDCita);
+        st.executeUpdate();
+    }
+
+    public void eliminarRegistro(long iDCita) throws SQLException {
+        String consulta = "DELETE FROM registro WHERE k_cita= ?;";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setLong(1, iDCita);
+        st.executeUpdate();
+    }
 }
