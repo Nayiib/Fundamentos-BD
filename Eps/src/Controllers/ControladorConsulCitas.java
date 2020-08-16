@@ -1,16 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Controllers;
 
-import java.util.ArrayList;
 import Models.DatosConsulCita;
+import java.util.ArrayList;
 
+/**
+ *
+ * @author katht
+ */
 public class ControladorConsulCitas {
-    private ArrayList<DatosConsulCita> arregloCitas2 = new ArrayList<DatosConsulCita>();
+    ArrayList<DatosConsulCita> arregloCitas2;
     
-    public ControladorConsulCitas(){
-        DatosConsulCita citaTemp = new DatosConsulCita("Odontologia","Lectura Examen","Yuliana", "2:30", "Calle 48", "kjhdfkl", 201);
-        DatosConsulCita citaTemp1 = new DatosConsulCita("Medicina General","Control","Julian", "2:50", "Calle 48", "hsjkhskh", 221);
-        arregloCitas2.add(citaTemp);
-        arregloCitas2.add(citaTemp1);
+    public ControladorConsulCitas(ArrayList<DatosConsulCita> arregloCitas2){
+        this.arregloCitas2 = arregloCitas2;
     }
     
     public DatosConsulCita obtenerCita(int numCita){
@@ -21,3 +27,4 @@ public class ControladorConsulCitas {
         return arregloCitas2.size();
     }
 }
+
