@@ -1,10 +1,12 @@
 package Gui.AfiliadoBeneficiario;
 
 import Controllers.ControladorConsulCitas;
+import Models.DatosConsulCita;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,10 +35,12 @@ public class ResulConsulCita extends JFrame implements ActionListener{
     private JLabel MConsul = new JLabel();
     private JButton Sigui = new JButton("Siguiente");
     private JButton Ante = new JButton("Anterior");
+    ArrayList<DatosConsulCita> arreglo = new ArrayList<DatosConsulCita>();
     
     int i = 0;
     
-    public ResulConsulCita(){
+    public ResulConsulCita(ArrayList<DatosConsulCita> arregloCitas2){
+        this.arreglo = arregloCitas2;
         initCompo();
         mostrar();
         cambiarDatos(0);
@@ -48,7 +52,7 @@ public class ResulConsulCita extends JFrame implements ActionListener{
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        controlador = new ControladorConsulCitas();
+        controlador = new ControladorConsulCitas(arreglo);
     }
     
     public void cambiarDatos(int i){

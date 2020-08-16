@@ -66,7 +66,7 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
         ConsCita.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ConsultarCita Aconscita = new ConsultarCita();
+                ConsultarCita Aconscita = new ConsultarCita(iDAfiliadoRef);
                 Aconscita.setVisible(true);
                 Aconscita.setLocationRelativeTo(null);
             }
