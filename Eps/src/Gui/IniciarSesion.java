@@ -104,7 +104,7 @@ public class IniciarSesion extends JFrame {
                         medico.setLocationRelativeTo(null);
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Por favor asegurese que sus datos esten bien escritos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "A habido un problema con sus datos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
                     }
 
                 } else {
@@ -114,7 +114,7 @@ public class IniciarSesion extends JFrame {
                         AB.setVisible(true);
                         AB.setLocationRelativeTo(null);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Por favor asegurese que sus datos esten bien escritos", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "A habido un problema con sus datos ", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

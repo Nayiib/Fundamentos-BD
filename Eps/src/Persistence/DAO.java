@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import ignore.Keys;
 import java.sql.PreparedStatement;
 
-
 public class DAO {
 
     protected Connection conexion;
@@ -45,11 +44,9 @@ public class DAO {
             System.out.println("Fallo: " + ex);
         }
     }
-    
+
     public boolean getUser(String tabla, String tipo, long id) {
         ResultSet user = null;
-        long comparacion = 0;
-        String comparacionTipo = "";
 
         try {
             String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";
@@ -59,10 +56,15 @@ public class DAO {
 
             user = st.executeQuery();
             while (user.next()) {
-                comparacion = user.getLong(2);
-                comparacionTipo = user.getString(1);
-                if(comparacion == id && comparacionTipo.equals(tipo) ){
-                    return true;
+                
+                if (tabla.equals("afiliado_beneficiario")) {
+                    if (user.getLong(2) == id && user.getString(1).equals(tipo) && user.getString(4).equals("Activo")) {
+                        return true;
+                    }
+                } else {
+                    if (user.getLong(2) == id && user.getString(1).equals(tipo)) {
+                        return true;
+                    }
                 }
             }
 
@@ -72,6 +74,5 @@ public class DAO {
 
         return false;
     }
-
 
 }
