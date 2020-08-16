@@ -6,6 +6,6 @@ public class Main {
         IniciarSesion Ventana = new IniciarSesion();
         Ventana.setVisible(true);
         Ventana.setLocationRelativeTo(null);
-        
+         
     }
 }

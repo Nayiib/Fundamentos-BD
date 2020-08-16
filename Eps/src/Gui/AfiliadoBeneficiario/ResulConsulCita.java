@@ -1,98 +1,148 @@
 package Gui.AfiliadoBeneficiario;
 
+import Controllers.ControladorConsulCitas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class ResulConsulCita extends JFrame{
-    public JPanel panel;
+
+public class ResulConsulCita extends JFrame implements ActionListener{
+    
+    private JPanel panel;
+    private ControladorConsulCitas controlador;
+    private JLabel Titulo = new JLabel("Datos de la cita", SwingConstants.CENTER);
+    private JLabel Espe = new JLabel("Especialidad:");
+    private JLabel MEspe = new JLabel();
+    private JLabel TCita = new JLabel("Tipo de cita:");
+    private JLabel MTCita = new JLabel();
+    private JLabel MT = new JLabel("Médico tratante:");
+    private JLabel MMT = new JLabel();
+    private JLabel H = new JLabel("Hora:");
+    private JLabel MH = new JLabel();
+    private JLabel Sede = new JLabel("Sede:");
+    private JLabel MSede = new JLabel();
+    private JLabel Dirc = new JLabel("Dirección:");
+    private JLabel MDirc = new JLabel();
+    private JLabel Consul = new JLabel("Consultorio:");
+    private JLabel MConsul = new JLabel();
+    private JButton Sigui = new JButton("Siguiente");
+    private JButton Ante = new JButton("Anterior");
+    
+    int i = 0;
     
     public ResulConsulCita(){
         initCompo();
         mostrar();
+        cambiarDatos(0);
     }
     
     public void initCompo(){
-        setSize(600,320); 
+        setSize(400,400); 
         setTitle("Consulta de citas");
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        controlador = new ControladorConsulCitas();
+    }
+    
+    public void cambiarDatos(int i){
+        MMT.setText(controlador.obtenerCita(i).getMedicoTratante());
+        MEspe.setText(controlador.obtenerCita(i).getEspecialidad());
+        MTCita.setText(controlador.obtenerCita(i).getTipoCita());
+        MH.setText(controlador.obtenerCita(i).getHora());
+        MSede.setText(controlador.obtenerCita(i).getSede());
+        MDirc.setText(controlador.obtenerCita(i).getDireccion());
+        MConsul.setText(""+controlador.obtenerCita(i).getConsultorio());
+        
     }
     
     public void mostrar(){
-        JLabel Titulo = new JLabel("Datos de la cita", SwingConstants.CENTER);
-        Titulo.setBounds(0, 10, 600, 30);
+        Titulo.setBounds(0, 10, 400, 30);
         Titulo.setFont(new Font("Serif", Font.BOLD, 22)); 
         Titulo.setForeground(new Color(21, 67, 96));
         panel.add(Titulo);
         
-        JLabel Espe = new JLabel("Especialidad:");
-        Espe.setBounds(100, 90, 200, 30);
-        Espe.setFont(new Font("Serif", Font.BOLD, 18)); 
-        panel.add(Espe);
-        
-        JLabel MEspe = new JLabel("Odontologia");
-        MEspe.setBounds(350, 95, 200, 20);
-        MEspe.setFont(new Font("Serif", Font.BOLD, 14)); 
-        panel.add(MEspe);
-        
-        JLabel MT = new JLabel("Médico tratante:");
-        MT.setBounds(100, 120, 200, 30);
+        MT.setBounds(5, 45, 150, 30);
         MT.setFont(new Font("Serif", Font.BOLD, 18)); 
         panel.add(MT);
         
-        JLabel MMT = new JLabel("Yuliana Chaves");
-        MMT.setBounds(350, 125, 200, 20);
+        MMT.setBounds(205, 50, 150, 20);
         MMT.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(MMT);
         
-        JLabel H = new JLabel("Hora:");
-        H.setBounds(100, 150, 200, 30);
+        Espe.setBounds(5, 75, 150, 30);
+        Espe.setFont(new Font("Serif", Font.BOLD, 18)); 
+        panel.add(Espe);
+        
+        MEspe.setBounds(205, 80, 150, 20);
+        MEspe.setFont(new Font("Serif", Font.BOLD, 14)); 
+        panel.add(MEspe);
+        
+        TCita.setBounds(5, 105, 150, 30);
+        TCita.setFont(new Font("Serif", Font.BOLD, 18)); 
+        panel.add(TCita);
+        
+        MTCita.setBounds(205, 110, 150, 20);
+        MTCita.setFont(new Font("Serif", Font.BOLD, 14)); 
+        panel.add(MTCita);
+        
+        H.setBounds(5, 135, 150, 30);
         H.setFont(new Font("Serif", Font.BOLD, 18)); 
         panel.add(H);
         
-        JLabel MH = new JLabel("3:30 pm");
-        MH.setBounds(350, 155, 200, 20);
+        MH.setBounds(205, 140, 150, 20);
         MH.setFont(new Font("Serif", Font.BOLD, 14)); 
-        panel.add(MH);
+        panel.add(MH); 
         
-        JLabel Sede = new JLabel("Sede:");
-        Sede.setBounds(100, 180, 200, 30);
+        Sede.setBounds(5, 165, 150, 30);
         Sede.setFont(new Font("Serif", Font.BOLD, 18)); 
         panel.add(Sede);
         
-        JLabel MSede = new JLabel("Calle 48");
-        MSede.setBounds(350, 185, 200, 20);
+        MSede.setBounds(205, 170, 150, 20);
         MSede.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(MSede);
         
-        JLabel Dirc = new JLabel("Dirección:");
-        Dirc.setBounds(100, 210, 200, 30);
+        Dirc.setBounds(5, 195, 150, 30);
         Dirc.setFont(new Font("Serif", Font.BOLD, 18)); 
         panel.add(Dirc);
         
-        JLabel MDirc = new JLabel("Cr 13 # 48 - 51");
-        MDirc.setBounds(350, 215, 200, 20);
+        MDirc.setBounds(205, 200, 150, 20);
         MDirc.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(MDirc);
         
-        JLabel Consul = new JLabel("Consultorio:");
-        Consul.setBounds(100, 240, 200, 30);
+        Consul.setBounds(5, 225, 150, 30);
         Consul.setFont(new Font("Serif", Font.BOLD, 18)); 
         panel.add(Consul);
         
-        JLabel MConsul = new JLabel("410");
-        MConsul.setBounds(350, 245, 200, 20);
+        MConsul.setBounds(205, 230, 150, 20);
         MConsul.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(MConsul);
+        
+        Ante.setBounds(50, 290, 100, 30);
+        Ante.addActionListener(this);
+        panel.add(Ante);
+        
+        Sigui.setBounds(225, 290, 100, 30);
+        Sigui.addActionListener(this);
+        panel.add(Sigui);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource().equals(Ante)&& i>0){
+            i--;
+        }
+        if (ae.getSource().equals(Sigui)){
+            if (i!=controlador.getTamañoArreglo() - 1){
+                i++;
+            }
+        }
+        cambiarDatos(i);
     }
 }
