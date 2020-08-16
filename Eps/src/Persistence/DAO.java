@@ -1,10 +1,12 @@
 package Persistence;
 
+import Models.Afiliado;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import ignore.Keys;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 
 public class DAO {
@@ -49,6 +51,7 @@ public class DAO {
         ResultSet user = null;
 
         try {
+            System.out.println(tabla + "    " + tipo + "    " + id);
             String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";
             PreparedStatement st = conexion.prepareStatement(consulta);
             st.setString(1, tipo);
@@ -56,12 +59,16 @@ public class DAO {
 
             user = st.executeQuery();
             while (user.next()) {
-                
+
                 if (tabla.equals("afiliado_beneficiario")) {
+                    System.out.println("ENTRO 2");
+
                     if (user.getLong(2) == id && user.getString(1).equals(tipo) && user.getString(4).equals("Activo")) {
                         return true;
                     }
                 } else {
+                    System.out.println("ENTRO 3");
+
                     if (user.getLong(2) == id && user.getString(1).equals(tipo)) {
                         return true;
                     }
@@ -75,4 +82,16 @@ public class DAO {
         return false;
     }
 
+    public void registrarAB(Afiliado ABReferencia) throws SQLException {
+        String comandoSQL = ("INSERT INTO afiliado_beneficiario  VALUES (?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement ps = conexion.prepareStatement(comandoSQL);
+        ps.setString(1, ABReferencia.getTipoDocumento());
+        ps.setLong(2, ABReferencia.getNumeroDocumento());
+        ps.setString(3, ABReferencia.getTipoAfiliacion());
+        ps.setString(4, ABReferencia.getEstado());
+        ps.setInt(5, ABReferencia.getCategoria());
+        ps.setString(6, ABReferencia.getTipoDocumentoAfiliado());
+        ps.setLong(7, ABReferencia.getNumeroDocumentoAfiliado());
+        ps.execute();
+    }
 }

@@ -83,4 +83,6 @@ public class AfiliadoDAO extends DAO {
         st.setLong(1, iDCita);
         st.executeUpdate();
     }
+
+
 }
