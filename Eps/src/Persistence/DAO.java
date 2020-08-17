@@ -73,10 +73,8 @@ public class DAO {
     }
 
     public void registrarUsuario(Usuario usuario) throws SQLException {
-
         String query = "INSERT INTO usuario VALUES(?,?,?,?,?,?,?,?,?)";
         PreparedStatement st = conexion.prepareStatement(query);
-
         st.setString(1, usuario.getTipoDocumento());
         st.setLong(2, usuario.getNumeroDocumento());
         st.setString(3, usuario.getNombreUsuario());
@@ -86,7 +84,6 @@ public class DAO {
         st.setLong(7, usuario.getTelefonoCelular());
         st.setString(8, usuario.getCorreo());
         st.setInt(9, usuario.getEpsKey());
-
         st.execute();
     }
 

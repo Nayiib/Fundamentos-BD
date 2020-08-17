@@ -302,9 +302,10 @@ public class RegistrarAB extends JFrame {
                         Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), textoNombres.getText() + " " + textoApellidos.getText(),
                                 comboSexo.getSelectedItem().toString(), fechaSQL, Long.valueOf(textoTelefonoCasa.getText()), Long.valueOf(textoTelefonoCelular.getText()),
                                 textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
-                        System.out.println("acá 1");
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
+                        JOptionPane.showMessageDialog(null, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
                     } catch (ParseException ex) {
@@ -325,9 +326,10 @@ public class RegistrarAB extends JFrame {
                                 comboSexo.getSelectedItem().toString(), fechaSQL, Long.valueOf(textoTelefonoCasa.getText()), Long.valueOf(textoTelefonoCelular.getText()),
                                 textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(),
                                 comboTipoIDAfiRelacionado.getSelectedItem().toString(), Long.valueOf(textoIDAfiRela.getText()));
-                        System.out.println("acá 2");
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
+                        JOptionPane.showMessageDialog(null, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
                     } catch (ParseException ex) {
