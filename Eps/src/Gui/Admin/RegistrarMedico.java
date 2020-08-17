@@ -1,6 +1,5 @@
 package Gui.Admin;
 
-import Gui.Medico.AgregarEspecialidad;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

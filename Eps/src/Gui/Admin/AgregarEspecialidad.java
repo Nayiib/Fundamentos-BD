@@ -1,4 +1,4 @@
-package Gui.Medico;
+package Gui.Admin;
 
 import java.awt.Color;
 import java.awt.Font;

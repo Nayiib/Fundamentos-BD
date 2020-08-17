@@ -9,24 +9,31 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 public class RegistrarAB extends JFrame {
 
     private JPanel panel;
     private DAO control;
+    java.util.Date fechaUtil;
+    java.sql.Date fechaSQL;
 
     public RegistrarAB() {
         initCompo();
         mostrar();
         control = DAO.getReference();
+        setAlwaysOnTop(true);
     }
 
     public void initCompo() {
@@ -34,12 +41,22 @@ public class RegistrarAB extends JFrame {
         setTitle("Registrar un nuevo afiliado/beneficiario");
         panel = new JPanel();
         panel.setLayout(null);
-        this.getContentPane().add(panel);
+        getContentPane().add(panel);
+        setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public void mostrar() {
+        SimpleDateFormat formatterDateSQL = new SimpleDateFormat("yyyy-MM-dd");
+        MaskFormatter formatterDate = null;
+
+        try {
+            formatterDate = new MaskFormatter("####-##-##");
+        } catch (ParseException e) {
+            System.out.println("Fallo en el parse: " + e.getMessage());
+        }
+
         JLabel Titulo = new JLabel("Registrar un nuevo afiliado/beneficiario", SwingConstants.CENTER);
         Titulo.setBounds(0, 10, 600, 30);
         Titulo.setFont(new Font("Serif", Font.BOLD, 22));
@@ -70,7 +87,7 @@ public class RegistrarAB extends JFrame {
         labelSexo.setBounds(5, 200, 300, 30);
         labelSexo.setFont(new Font("Serif", Font.BOLD, 14));
 
-        JLabel labelFechaNacimiento = new JLabel("Fecha de nacimiento (DD/MM/AAAA) *");
+        JLabel labelFechaNacimiento = new JLabel("Fecha de nacimiento (AAAA/MM/DD) *");
         labelFechaNacimiento.setBounds(305, 200, 300, 30);
         labelFechaNacimiento.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -125,7 +142,7 @@ public class RegistrarAB extends JFrame {
         comboTipoID.addItem("Registro civil");
         comboTipoID.addItem("Tarjeta de identidad");
         comboTipoID.addItem("Cedula de ciudadania");
-        comboTipoID.addItem("Cedula  de extrangeria");
+        comboTipoID.addItem("Cedula de extrangeria");
         comboTipoID.setBounds(5, 115, 200, 20);
         comboTipoID.setBackground(Color.white);
 
@@ -147,7 +164,7 @@ public class RegistrarAB extends JFrame {
         comboTipoIDAfiRelacionado.addItem("Registro civil");
         comboTipoIDAfiRelacionado.addItem("Tarjeta de identidad");
         comboTipoIDAfiRelacionado.addItem("Cedula de ciudadania");
-        comboTipoIDAfiRelacionado.addItem("Cedula  de extrangeria");
+        comboTipoIDAfiRelacionado.addItem("Cedula de extrangeria");
         comboTipoIDAfiRelacionado.setBounds(5, 625, 200, 20);
         comboTipoIDAfiRelacionado.setBackground(Color.white);
 
@@ -221,10 +238,10 @@ public class RegistrarAB extends JFrame {
                 }
             }
         });
-
-        JTextField textoFechaNacimiento = new JTextField();
+        JFormattedTextField textoFechaNacimiento = new JFormattedTextField(formatterDate);
         textoFechaNacimiento.setBounds(305, 235, 200, 20);
         textoFechaNacimiento.setText("textoFechaNacimiento");
+        textoFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField textoTelefonoCasa = new JTextField();
         textoTelefonoCasa.setBounds(5, 325, 200, 20);
@@ -280,10 +297,18 @@ public class RegistrarAB extends JFrame {
                     JOptionPane.showMessageDialog(null, "Rellene todos los campos necesarios", "Estado registro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     try {
-                        Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
+                        fechaUtil = formatterDateSQL.parse(textoFechaNacimiento.getText());
+                        fechaSQL = new java.sql.Date(fechaUtil.getTime());
+                        Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), textoNombres.getText() + " " + textoApellidos.getText(),
+                                comboSexo.getSelectedItem().toString(), fechaSQL, Long.valueOf(textoTelefonoCasa.getText()), Long.valueOf(textoTelefonoCelular.getText()),
+                                textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
+                        System.out.println("acá 1");
+                        control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
+                    } catch (ParseException ex) {
+                        System.out.println("Falló el método Parse: " + ex.getMessage());
                     }
                 }
             } else if (comboTipoAfiliacion.getSelectedItem().toString().equals("Beneficiario")) {
@@ -294,10 +319,19 @@ public class RegistrarAB extends JFrame {
                     JOptionPane.showMessageDialog(null, "Rellene todos los campos necesarios", "Estado registro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     try {
-                        Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(), comboTipoIDAfiRelacionado.getSelectedItem().toString(), Long.valueOf(textoIDAfiRela.getText()));
+                        fechaUtil = formatterDateSQL.parse(textoFechaNacimiento.getText());
+                        fechaSQL = new java.sql.Date(fechaUtil.getTime());
+                        Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), textoNombres.getText() + " " + textoApellidos.getText(),
+                                comboSexo.getSelectedItem().toString(), fechaSQL, Long.valueOf(textoTelefonoCasa.getText()), Long.valueOf(textoTelefonoCelular.getText()),
+                                textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(),
+                                comboTipoIDAfiRelacionado.getSelectedItem().toString(), Long.valueOf(textoIDAfiRela.getText()));
+                        System.out.println("acá 2");
+                        control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
+                    } catch (ParseException ex) {
+                        System.out.println("Falló el método Parse: " + ex.getMessage());
                     }
                 }
             }

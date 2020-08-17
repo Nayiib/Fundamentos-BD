@@ -2,6 +2,7 @@ package Gui;
 
 import Gui.Medico.InterfazMedico;
 import Gui.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
+import Gui.AfiliadoBeneficiario.RegistrarAB;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
 import Persistence.DAO;
+import java.sql.SQLException;
 
 public class IniciarSesion extends JFrame {
 
@@ -89,6 +91,14 @@ public class IniciarSesion extends JFrame {
         //ISesion.setBounds(200, 200, 150, 30);
         panel.add(ISesion);
 
+        JButton Registrar = new JButton("Registrar");
+        Registrar.setSize(new Dimension(150, 30));
+        Registrar.setLocation(432, 250);
+        Registrar.addActionListener((ActionEvent ae) -> {
+            RegistrarAB vistaRegistro = new RegistrarAB();
+        });
+        panel.add(Registrar);
+
         ISesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,23 +107,23 @@ public class IniciarSesion extends JFrame {
                 String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
 
                 if (tipoUsuario.equals("Medico")) {
-                    if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
+                    try {
+                        controlador.getUser("medico", tipoDocumento, Long.parseLong(Id));
                         IniciarSesion.this.setVisible(false);
                         InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()));
                         medico.setVisible(true);
                         medico.setLocationRelativeTo(null);
-
-                    } else {
+                    } catch (SQLException a) {
                         JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Error de Autenticacion", JOptionPane.ERROR_MESSAGE);
                     }
-
                 } else {
-                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
+                    try {
+                        controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id));
                         IniciarSesion.this.setVisible(false);
                         InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(Long.valueOf(CID.getText()));
                         AB.setVisible(true);
                         AB.setLocationRelativeTo(null);
-                    } else {
+                    } catch (SQLException o) {
                         JOptionPane.showMessageDialog(null, "A habido un problema veriqfique que los datos son correctos o que su usuario este activo ", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
                     }
                 }
