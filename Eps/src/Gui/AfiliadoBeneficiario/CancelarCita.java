@@ -184,15 +184,22 @@ public class CancelarCita extends JFrame {
             } else if (ae.getActionCommand().equals(botonVolver.getActionCommand())) {
                 dispose();
             } else if (ae.getActionCommand().equals(botonConfirmar.getActionCommand())) {
-                try {
-                    String[] split = citas.getSelectedItem().toString().split("    - - -");
-                    control.eliminarPago(Integer.valueOf(split[0]));
-                    control.eliminarRegistro(Integer.valueOf(split[0]));
-                    control.eliminarCita(iDAfiliadoRef, Integer.valueOf(split[0]));
-                    JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente", "Estado cancelación", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } catch (SQLException ex) {
-                    System.out.println("Fallo SQL: " + ex.getMessage());
+                if (citas.getItemCount() != 0 && !textFieldDate.getText().equals(null)) {
+                    int numeroConfirmacion = JOptionPane.showConfirmDialog(this, "¿Seguro quiere borrar esta cita? Esta operación es irreversible", "Confirmación cancelación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (numeroConfirmacion == 0) {
+                        try {
+                            String[] split = citas.getSelectedItem().toString().split("    - - -");
+                            control.eliminarPago(Integer.valueOf(split[0]));
+                            control.eliminarRegistro(Integer.valueOf(split[0]));
+                            control.eliminarCita(iDAfiliadoRef, Integer.valueOf(split[0]));
+                            JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente", "Estado cancelación", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+                        } catch (SQLException ex) {
+                            System.out.println("Fallo SQL: " + ex.getMessage());
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Complete el formulario correctamente", "Estado cancelación", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }

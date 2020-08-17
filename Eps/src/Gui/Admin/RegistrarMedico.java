@@ -22,24 +22,21 @@ import javax.swing.JOptionPane;
 public class RegistrarMedico extends JFrame implements ActionListener {
 
     private JPanel panel;
-    private SimpleDateFormat formatterDateSQL = new SimpleDateFormat("yyyy-MM-dd");
-    private JLabel Titulo,Nom,DM,Tipo,Apell,Sexo,FN,Cont,TC;
+    private JLabel Titulo, Nom, DM, Tipo, Apell, Sexo, FN, Cont, TC;
     private JComboBox MTipo;
-    private JLabel ID,NC,Correo,FA,RM;
-    private JTextField CID,CApell,CTC,CNom,CNC,CCorreo,CRM;
+    private JLabel ID, NC, Correo, FA, RM;
+    private JTextField CID, CApell, CTC, CNom, CNC, CCorreo, CRM;
     private JComboBox MSexo;
     private JFormattedTextField CFN;
     private JButton btn;
-    private Date fechaMedico;
-     
+    private SimpleDateFormat formatterDateSQL = new SimpleDateFormat("yyyy-MM-dd");
+    private java.util.Date fechaUtil;
+    private java.sql.Date fechaSQL;
 
     public RegistrarMedico() {
         initCompo();
-        try {
-            mostrar();
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error en el formato", JOptionPane.ERROR_MESSAGE);
-        }
+        mostrar();
+
     }
 
     public void initCompo() {
@@ -51,7 +48,7 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public void mostrar() throws ParseException {
+    public void mostrar() {
 
         Titulo = new JLabel("Registrar un nuevo medico", SwingConstants.CENTER);
         Titulo.setBounds(0, 10, 600, 30);
@@ -123,11 +120,15 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         FN.setFont(new Font("Serif", Font.BOLD, 14));
         panel.add(FN);
 
-        CFN = new JFormattedTextField(new MaskFormatter("####-##-##"));
-        CFN.setBounds(350, 235, 120, 20);
-        CFN.setFont(new Font("font", Font.PLAIN, 12));
-        CFN.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(CFN);
+        try {
+            CFN = new JFormattedTextField(new MaskFormatter("####-##-##"));
+            CFN.setBounds(350, 235, 120, 20);
+            CFN.setFont(new Font("font", Font.PLAIN, 12));
+            CFN.setHorizontalAlignment(SwingConstants.CENTER);
+            panel.add(CFN);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Los datos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         Cont = new JLabel("Contacto");
         Cont.setBounds(5, 260, 600, 30);
@@ -182,19 +183,24 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         btn.addActionListener(this);
         panel.add(btn);
 
-        
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         try {
-            fechaMedico = new Date(formatterDateSQL.parse(CFN.getText()).getTime());
+             fechaUtil = formatterDateSQL.parse(CFN.getText());
+             fechaSQL = new java.sql.Date(fechaUtil.getTime());
+            Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
+                     Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
+                    fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
 
+            AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
+            agregarEspecialidad.setLocationRelativeTo(null);
+            agregarEspecialidad.setVisible(true);
 
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
         }
-        
-       
+
     }
 }

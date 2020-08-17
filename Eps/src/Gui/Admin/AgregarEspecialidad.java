@@ -11,13 +11,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import Models.Medico;
+import Persistence.MedicoDAO;
 import java.util.ArrayList;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
-public class AgregarEspecialidad extends JFrame {
+public class AgregarEspecialidad extends JFrame implements ActionListener {
 
-    public JPanel panel;
+    private JPanel panel;
     private Medico medico;
     private ArrayList especialidades;
+    private JLabel Titulo,Espe,Sede,Consul;
+    private JTextField CEspe,CSede,CConsul;
+    private JButton Registrar,AOtra;
+    private MedicoDAO controller = MedicoDAO.getReference();
 
     public AgregarEspecialidad(Medico medico) {
         initCompo();
@@ -35,54 +42,64 @@ public class AgregarEspecialidad extends JFrame {
     }
 
     public void mostrar() {
-        JLabel Titulo = new JLabel("Agregar especialidad(es) al medico", SwingConstants.CENTER);
+        Titulo = new JLabel("Agregar especialidad(es) al medico", SwingConstants.CENTER);
         Titulo.setBounds(0, 10, 600, 30);
         Titulo.setFont(new Font("Serif", Font.BOLD, 22));
         Titulo.setForeground(new Color(21, 67, 96));
         panel.add(Titulo);
 
-        JLabel Espe = new JLabel("Especialidad");
+        Espe = new JLabel("Especialidad");
         Espe.setBounds(100, 90, 100, 30);
         Espe.setFont(new Font("Serif", Font.BOLD, 14));
         panel.add(Espe);
 
-        JTextField CEspe = new JTextField();
+        CEspe = new JTextField();
         CEspe.setBounds(305, 95, 200, 20);
         panel.add(CEspe);
 
-        JLabel Sede = new JLabel("Sede");
+        Sede = new JLabel("Sede");
         Sede.setBounds(100, 120, 300, 30);
         Sede.setFont(new Font("Serif", Font.BOLD, 14));
         panel.add(Sede);
 
-        JTextField CSede = new JTextField();
+        CSede = new JTextField();
         CSede.setBounds(305, 125, 200, 20);
         panel.add(CSede);
 
-        JLabel Consul = new JLabel("Consultotio");
+        Consul = new JLabel("Consultotio");
         Consul.setBounds(100, 150, 300, 30);
         Consul.setFont(new Font("Serif", Font.BOLD, 14));
         panel.add(Consul);
 
-        JTextField CConsul = new JTextField();
+        CConsul = new JTextField();
         CConsul.setBounds(305, 150, 200, 20);
         panel.add(CConsul);
 
-        JButton Registrar = new JButton("Terminar registro");
+        Registrar = new JButton("Terminar registro");
         Registrar.setBounds(130, 190, 150, 30);
+        Registrar.addActionListener(this);
         panel.add(Registrar);
 
-        JButton AOtra = new JButton("Añadir una otra");
+        AOtra = new JButton("Añadir una otra");
         AOtra.setBounds(300, 190, 150, 30);
-        AOtra.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                CSede.setText("");
-                CEspe.setText("");
-                CConsul.setText("");
-            }
-        });
+        AOtra.addActionListener(this);
         panel.add(AOtra);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == Registrar){
+            try{
+                controller.registrarUsuario(medico);
+                controller.registrarMedico(medico);
+                JOptionPane.showMessageDialog(null, "Medico " + medico.getNombreUsuario()+
+                        "Creado exitosamente ","OK",JOptionPane.OK_OPTION);
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "Ha habido un problema","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }else if(ae.getSource() == AOtra){
+            
+        }
     }
 
 }

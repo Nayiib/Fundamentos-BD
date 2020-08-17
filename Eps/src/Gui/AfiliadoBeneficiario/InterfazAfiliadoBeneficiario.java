@@ -28,7 +28,7 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
 
     public void initCompo() {
         setSize(600, 270);
-        setTitle("Opciones del medico");
+        setTitle("Opciones Afiliado/Beneficiario");
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);

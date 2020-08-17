@@ -7,17 +7,13 @@ public class Medico extends Usuario {
     
     private String registroMedico;
 
-    public Medico(String tipoDocumento, long numeroDocumento, String nombreUsuario, String sexo, Date fechaNacimiento, long telefonoContacto,long telefonoCelular,int epsKey,String registroMedico) {
-        super(tipoDocumento, numeroDocumento, nombreUsuario, sexo, fechaNacimiento, telefonoContacto, epsKey);
+    public Medico(String registroMedico, String tipoDocumento, long numeroDocumento, String nombreUsuario, String sexo, Date fechaNacimiento, long telefonoContacto, long telefonoCelular, String correo, int epsKey) {
+        super(tipoDocumento, numeroDocumento, nombreUsuario, sexo, fechaNacimiento, telefonoContacto, telefonoCelular, correo, epsKey);
         this.registroMedico = registroMedico;
     }
+
     
     public String getRegistroMedico(){
-        return registroMedico;
+        return this.registroMedico;
     }
-    
-    
-    
-    
-    
 }
