@@ -188,8 +188,8 @@ public class RegistrarMedico extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         try {
-             fechaUtil = formatterDateSQL.parse(CFN.getText());
-             fechaSQL = new java.sql.Date(fechaUtil.getTime());
+            fechaUtil = formatterDateSQL.parse(CFN.getText());
+            fechaSQL = new java.sql.Date(fechaUtil.getTime());
             Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
                      Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
                     fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
@@ -199,7 +199,9 @@ public class RegistrarMedico extends JFrame implements ActionListener {
             agregarEspecialidad.setVisible(true);
 
         } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch(NumberFormatException a){
+            JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

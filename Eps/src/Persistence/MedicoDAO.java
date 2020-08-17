@@ -74,6 +74,8 @@ public class MedicoDAO extends DAO {
         ps.execute();
 
     }
+    
+    
 
 }
 
