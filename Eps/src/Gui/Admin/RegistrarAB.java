@@ -42,9 +42,9 @@ public class RegistrarAB extends JFrame {
         panel = new JPanel();
         panel.setLayout(null);
         getContentPane().add(panel);
-        setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
     }
 
     public void mostrar() {

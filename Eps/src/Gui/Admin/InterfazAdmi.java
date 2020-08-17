@@ -47,22 +47,11 @@ public class InterfazAdmi extends JFrame {
         RegisAB.setBounds(150, 160, 300, 30);
         panel.add(RegisAB);
 
-        RegisMedic.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RegistrarMedico IRegisMedic = new RegistrarMedico();
-                IRegisMedic.setVisible(true);
-                IRegisMedic.setLocationRelativeTo(null);
-            }
+        RegisMedic.addActionListener((ActionEvent e) -> {
+            RegistrarMedico IRegisMedic = new RegistrarMedico();
         });
-        RegisAB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RegistrarAB IRegisAB = new RegistrarAB();
-                IRegisAB = new RegistrarAB();
-                IRegisAB.setVisible(true);
-                IRegisAB.setLocationRelativeTo(null);
-            }
+        RegisAB.addActionListener((ActionEvent e) -> {
+            RegistrarAB IRegisAB = new RegistrarAB();
         });
     }
 }

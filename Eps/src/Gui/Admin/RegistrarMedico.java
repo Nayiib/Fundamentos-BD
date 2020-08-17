@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 import Models.Medico;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
@@ -36,7 +35,6 @@ public class RegistrarMedico extends JFrame implements ActionListener {
     public RegistrarMedico() {
         initCompo();
         mostrar();
-
     }
 
     public void initCompo() {
@@ -44,9 +42,10 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         setTitle("Registrar un nuevo medico");
         panel = new JPanel();
         panel.setLayout(null);
-        this.getContentPane().add(panel);
+        getContentPane().add(panel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void mostrar() {
