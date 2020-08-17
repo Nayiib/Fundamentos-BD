@@ -64,6 +64,16 @@ public class MedicoDAO extends DAO {
         return datos;
 
     }
+    
+    public void agregarEspecialidad(int idEspecialidad,String nombre) throws SQLException {
+
+        String query = "INSERT INTO especialidad VALUES (?,?);";
+        PreparedStatement ps = conexion.prepareStatement(query);
+        ps.setInt(1, idEspecialidad);
+        ps.setString(2,nombre);
+        ps.execute();
+
+    }
 
 }
 

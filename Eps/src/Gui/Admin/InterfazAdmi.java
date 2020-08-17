@@ -16,23 +16,23 @@ import javax.swing.SwingConstants;
 
 public class InterfazAdmi extends JFrame{
     
-    public JPanel panel;
+    private JPanel panel;
     
     public InterfazAdmi(){
-        initCompo();
-        mostrar();
+        this.initCompo();
+        this.mostrar();
     }
     
-    public void initCompo(){
+    private void initCompo(){
         setSize(600,270); 
         setTitle("Opciones del administrador");
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
-    public void mostrar(){
+    private void mostrar(){
         JLabel Titulo = new JLabel("¿Que acción desea realizar?", SwingConstants.CENTER);
         Titulo.setBounds(0, 10, 600, 30);
         Titulo.setFont(new Font("Serif", Font.BOLD, 22)); 
