@@ -152,7 +152,7 @@ public class AgregarEspecialidad extends JFrame implements ActionListener {
             System.out.println("Fallo SQL: " + ex.getMessage());
         }
     }
-
+  
     public boolean VerificarChecks() {
         if (horario.getSelectedItem().toString().equals("") || CEspe.getSelectedItem().toString().equals("") || CSede.getSelectedItem().toString().equals("") || CConsul.getSelectedItem().toString().equals("")) {
             return false;

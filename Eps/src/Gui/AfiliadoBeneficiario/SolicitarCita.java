@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,6 +13,7 @@ import javax.swing.SwingConstants;
 public class SolicitarCita extends JFrame{
     
     public JPanel panel;
+   
     
     public SolicitarCita(){
         initCompo();
@@ -26,7 +26,7 @@ public class SolicitarCita extends JFrame{
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public void mostrar(){
