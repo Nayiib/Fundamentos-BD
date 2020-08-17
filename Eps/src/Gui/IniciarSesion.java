@@ -1,5 +1,6 @@
 package Gui;
 
+import Gui.Admin.InterfazAdmi;
 import Gui.Medico.InterfazMedico;
 import Gui.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
 import java.awt.Color;
@@ -7,7 +8,6 @@ import java.awt.Font;
 import java.awt.Dimension;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
 import Persistence.DAO;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class IniciarSesion extends JFrame {
@@ -30,7 +32,6 @@ public class IniciarSesion extends JFrame {
         initCompo();
         mostrar();
         controlador = DAO.getReference();
-
     }
 
     public void initCompo() {
@@ -82,48 +83,73 @@ public class IniciarSesion extends JFrame {
 
         JTextField CID = new JTextField();
         CID.setBounds(305, 155, 200, 20);
+        CID.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (CID.getText().length() >= 12) {
+                    e.consume();
+                }
+                if (!(e.getKeyChar() >= '0' && e.getKeyChar() <= '9') || e.getKeyChar() == ' ') {
+                    e.consume();
+                }
+            }
+        });
         panel.add(CID);
 
         JButton ISesion = new JButton("Iniciar Sesión");
         ISesion.setSize(new Dimension(150, 30));
         ISesion.setLocation(220, 200);
-        //ISesion.setBounds(200, 200, 150, 30);
         panel.add(ISesion);
 
-        ISesion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String Id = CID.getText();
-                String tipoUsuario = String.valueOf(TipoUsuario.getSelectedItem());
-                String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
+        JButton botonBack = new JButton("Exit");
+        botonBack.setBounds(15, 250, 100, 30);
+        botonBack.addActionListener((ActionEvent ae) -> {
+            System.exit(0);
+        });
+        panel.add(botonBack);
 
-                if (tipoUsuario.equals("Medico")) {
-                    try{
-                        controlador.getUser("medico", tipoDocumento, Long.parseLong(Id)); 
+        JButton Adminview = new JButton("Admin view");
+        Adminview.setSize(new Dimension(150, 30));
+        Adminview.setLocation(432, 250);
+        Adminview.addActionListener((ActionEvent ae) -> {
+            InterfazAdmi adminView = new InterfazAdmi();
+        });
+        panel.add(Adminview);
+
+        ISesion.addActionListener((ActionEvent ae) -> {
+            String Id = CID.getText();
+            String tipoUsuario = String.valueOf(TipoUsuario.getSelectedItem());
+            String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
+            if (tipoUsuario.equals("Medico")) {
+                try {
+                    if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()));
+                        InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()), tipoDocumento);
                         medico.setVisible(true);
                         medico.setLocationRelativeTo(null);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
-                    catch(SQLException a){
-                        JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Error de Autenticacion", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                } else {
-                    try{ 
-                        controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id)); 
+                } catch (SQLException aex) {
+                    JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException aex) {
+                    JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (tipoUsuario.equals("Afiliado/Beneficiario")) {
+                try {
+                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
                         InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(tipoDocumento, Long.valueOf(CID.getText()));
                         AB.setVisible(true);
                         AB.setLocationRelativeTo(null);
-                    } catch(SQLException o) {
-                        JOptionPane.showMessageDialog(null, "A habido un problema veriqfique que los datos son correctos o que su usuario este activo ", "Error Autenticacion", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
+                } catch (SQLException aex) {
+                    JOptionPane.showMessageDialog(null, "Ha habido un problema verifique que los datos son correctos o que su usuario este activo ", "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException aex) {
+                    JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
-
     }
-
 }

@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import Controllers.ControladorConsulCitas;
 import Models.DatosSolicCita;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+=======
+>>>>>>> 8005d0e1817c93a6874def606db79d78538c15a8
 
 public class AfiliadoDAO extends DAO {
 
@@ -200,7 +203,7 @@ public class AfiliadoDAO extends DAO {
     }
 
     public void eliminarCita(long iDUsuario, long iDCita) throws SQLException {
-        String consulta = "DELETE FROM cita WHERE k_cita = ? AND k_numeroDocumentoab = ?;";
+        String consulta = "UPDATE cita SET n_estado = 'Disponible', k_tipodocumentoab = null, k_numerodocumentoab = null WHERE k_cita = ? AND k_numerodocumentoab = ?;";
         PreparedStatement st = conexion.prepareStatement(consulta);
         st.setLong(1, iDCita);
         st.setLong(2, iDUsuario);
@@ -220,4 +223,6 @@ public class AfiliadoDAO extends DAO {
         st.setLong(1, iDCita);
         st.executeUpdate();
     }
+
+
 }

@@ -11,21 +11,28 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import Persistence.AgendaDAO;
+import java.sql.SQLException;
 
 public class InterfazMedico extends JFrame {
 
     public JPanel panel;
+    private String tipoDocumentoRef;
     private long iDMedicoRef;
+    private AgendaDAO agenda;
 
-    public InterfazMedico(long iDMedico) {
+    public InterfazMedico(long iDMedico, String tipodocumento) {
+
         iDMedicoRef = iDMedico;
+        tipoDocumentoRef = tipodocumento;
+        agenda = AgendaDAO.getReference();
         initCompo();
         mostrar();
     }
 
     public void initCompo() {
-        setSize(600, 270);
-        setTitle("Opciones del afiliado/beneficiario");
+        setSize(600, 200);
+        setTitle("Opciones del medico");
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
@@ -43,20 +50,17 @@ public class InterfazMedico extends JFrame {
         CreaAgen.setBounds(200, 70, 200, 30);
         panel.add(CreaAgen);
 
-        JButton ConsAgen = new JButton("Consultar una agenda");
-        ConsAgen.setBounds(200, 120, 200, 30);
-        panel.add(ConsAgen);
-
-        JButton CrearRegis = new JButton("Crear el registro de una cita");
-        CrearRegis.setBounds(200, 170, 200, 30);
-        panel.add(CrearRegis);
 
         CreaAgen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CrearAgendaParte1 Agen1 = new CrearAgendaParte1();
-                Agen1.setVisible(true);
-                Agen1.setLocationRelativeTo(null);
+                try {
+                    CrearAgendaParte1 Agen1 = new CrearAgendaParte1(iDMedicoRef, tipoDocumentoRef, agenda.crearAgendaID());
+                    Agen1.setVisible(true);
+                    Agen1.setLocationRelativeTo(null);
+                }catch(SQLException z){
+
+                }
             }
         });
 
