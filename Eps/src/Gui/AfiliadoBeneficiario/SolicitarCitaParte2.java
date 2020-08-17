@@ -10,10 +10,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controllers.ControladorCitas;
+import Models.DatosSolicCita;
+import Persistence.AfiliadoDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class SolicitarCitaParte2 extends JFrame implements ActionListener {
     public JPanel panel;
     ControladorCitas controlador;
+    private AfiliadoDAO control;
+    
+    private String TDA;
+    private long iDAfiliado;
+    
     JLabel MT = new JLabel("Médico tratante:");
     JLabel MMT = new JLabel();
     JLabel Fecha = new JLabel("Fecha:");
@@ -29,9 +41,15 @@ public class SolicitarCitaParte2 extends JFrame implements ActionListener {
     JButton Sigui = new JButton("Siguiente");
     JButton Ante = new JButton("Anterior");
     JButton Confi = new JButton("Confirmar");
+    
+    ArrayList<DatosSolicCita> arreglo = new ArrayList<DatosSolicCita>();
+    
     int i = 0;
     
-    public SolicitarCitaParte2() {
+    public SolicitarCitaParte2(String TDA, long iDAfiliado, ArrayList<DatosSolicCita> arregloCitas) {
+        this.arreglo = arregloCitas;
+        this.TDA = TDA;
+        this.iDAfiliado = iDAfiliado;
         initComponentes();
         mostrar();
         cambiarDatos(0);
@@ -44,7 +62,8 @@ public class SolicitarCitaParte2 extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        controlador = new ControladorCitas();
+        controlador = new ControladorCitas(arreglo);
+        control = AfiliadoDAO.getReference();
     }
     
     public void cambiarDatos(int i){
@@ -123,12 +142,22 @@ public class SolicitarCitaParte2 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(Ante)&& i>0){
             i--;
+            cambiarDatos(i);
         }
         if (ae.getSource().equals(Sigui)){
             if (i!=controlador.getTamañoArreglo() - 1){
                 i++;
+                cambiarDatos(i);
             }
         }
-        cambiarDatos(i);
+        if (ae.getSource().equals(Confi)){
+            try {
+                control.AñadirABCita(controlador.obtenerCita(i).getIdCita(), TDA, iDAfiliado);
+                long cuota = control.CuotaPagar(iDAfiliado);
+                JOptionPane.showMessageDialog(panel, "Exitoso " + "Su copago a realizar es de:  "+ cuota, "Estado consulta", JOptionPane.WARNING_MESSAGE);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(panel, "No se pudo añadir", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }
 }

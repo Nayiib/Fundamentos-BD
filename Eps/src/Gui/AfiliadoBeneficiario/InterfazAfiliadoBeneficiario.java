@@ -19,9 +19,11 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
 
     private JPanel panel;
     private long iDAfiliadoRef;
+    private String TipoAfiliadoRef;
 
-    public InterfazAfiliadoBeneficiario(long iDAfiliado) {
+    public InterfazAfiliadoBeneficiario(String tDAfiliado, long iDAfiliado) {
         iDAfiliadoRef = iDAfiliado;
+        TipoAfiliadoRef = tDAfiliado;
         initCompo();
         mostrar();
     }
@@ -57,7 +59,7 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
         ACita.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SolicitarCita ISoliCita = new SolicitarCita();
+                SolicitarCita ISoliCita = new SolicitarCita(TipoAfiliadoRef, iDAfiliadoRef);
                 ISoliCita.setVisible(true);
                 ISoliCita.setLocationRelativeTo(null);
             }
