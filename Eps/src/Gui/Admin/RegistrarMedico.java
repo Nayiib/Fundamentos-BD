@@ -18,7 +18,7 @@ import Models.Medico;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-public class RegistrarMedico extends JFrame implements ActionListener {
+public class RegistrarMedico extends JFrame {
 
     private JPanel panel;
     private JLabel Titulo, Nom, DM, Tipo, Apell, Sexo, FN, Cont, TC;
@@ -179,30 +179,33 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         panel.add(CRM);
 
         btn = new JButton("Agregar especialidad(es)");
-        btn.setBounds(200, 540, 200, 30);
-        btn.addActionListener(this);
+        btn.setBounds(350, 560, 200, 30);
+        btn.addActionListener((ActionEvent ae) -> {
+            try {
+                fechaUtil = formatterDateSQL.parse(CFN.getText());
+                fechaSQL = new java.sql.Date(fechaUtil.getTime());
+                Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
+                        Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
+                        fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
+
+                AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
+                agregarEspecialidad.setLocationRelativeTo(null);
+                agregarEspecialidad.setVisible(true);
+                dispose();
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException a) {
+                JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         panel.add(btn);
 
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        try {
-            fechaUtil = formatterDateSQL.parse(CFN.getText());
-            fechaSQL = new java.sql.Date(fechaUtil.getTime());
-            Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
-                     Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
-                    fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
-
-            AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
-            agregarEspecialidad.setLocationRelativeTo(null);
-            agregarEspecialidad.setVisible(true);
+        JButton botonBack = new JButton("Back");
+        botonBack.setBounds(50, 560, 100, 30);
+        panel.add(botonBack);
+        botonBack.addActionListener((ActionEvent ae) -> {
             dispose();
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch(NumberFormatException a){
-            JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        });
 
     }
 }

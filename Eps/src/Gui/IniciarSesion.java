@@ -100,6 +100,13 @@ public class IniciarSesion extends JFrame {
         ISesion.setLocation(220, 200);
         panel.add(ISesion);
 
+        JButton botonBack = new JButton("Exit");
+        botonBack.setBounds(15, 250, 100, 30);
+        botonBack.addActionListener((ActionEvent ae) -> {
+            System.exit(0);
+        });
+        panel.add(botonBack);
+
         JButton Adminview = new JButton("Admin view");
         Adminview.setSize(new Dimension(150, 30));
         Adminview.setLocation(432, 250);
@@ -108,7 +115,7 @@ public class IniciarSesion extends JFrame {
         });
         panel.add(Adminview);
 
-        ISesion.addActionListener((ActionEvent e) -> {
+        ISesion.addActionListener((ActionEvent ae) -> {
             String Id = CID.getText();
             String tipoUsuario = String.valueOf(TipoUsuario.getSelectedItem());
             String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
@@ -122,10 +129,10 @@ public class IniciarSesion extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch (SQLException a) {
-                    JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Estad login", JOptionPane.ERROR_MESSAGE);
-                } catch (NumberFormatException ae) {
-                    JOptionPane.showMessageDialog(null, "Fallo PARSE: " + ae.getMessage(), "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException aex) {
+                    JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException aex) {
+                    JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (tipoUsuario.equals("Afiliado/Beneficiario")) {
                 try {
@@ -137,10 +144,10 @@ public class IniciarSesion extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch (SQLException o) {
-                    JOptionPane.showMessageDialog(null, "A habido un problema veriqfique que los datos son correctos o que su usuario este activo ", "Estado login", JOptionPane.ERROR_MESSAGE);
-                } catch (NumberFormatException ae) {
-                    JOptionPane.showMessageDialog(null, "Fallo PARSE: " + ae.getMessage(), "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException aex) {
+                    JOptionPane.showMessageDialog(null, "Ha habido un problema verifique que los datos son correctos o que su usuario este activo ", "Estado login", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException aex) {
+                    JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
