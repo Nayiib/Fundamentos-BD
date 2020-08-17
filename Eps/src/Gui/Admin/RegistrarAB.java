@@ -87,7 +87,7 @@ public class RegistrarAB extends JFrame {
         labelSexo.setBounds(5, 200, 300, 30);
         labelSexo.setFont(new Font("Serif", Font.BOLD, 14));
 
-        JLabel labelFechaNacimiento = new JLabel("Fecha de nacimiento (AAAA/MM/DD) *");
+        JLabel labelFechaNacimiento = new JLabel("Fecha de nacimiento (YYYY/MM/DD) *");
         labelFechaNacimiento.setBounds(305, 200, 300, 30);
         labelFechaNacimiento.setFont(new Font("Serif", Font.BOLD, 14));
 
@@ -294,7 +294,7 @@ public class RegistrarAB extends JFrame {
                         || textoApellidos.getText().equals(null) || textoFechaNacimiento.getText().equals(null)
                         || textoTelefonoCasa.getText().equals(null) || textoTelefonoCelular.getText().equals(null)
                         || textoCorreo.getText().equals(null)) {
-                    JOptionPane.showMessageDialog(null, "Rellene todos los campos necesarios", "Estado registro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Rellene todos los campos necesarios", "Estado registro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     try {
                         fechaUtil = formatterDateSQL.parse(textoFechaNacimiento.getText());
@@ -304,12 +304,12 @@ public class RegistrarAB extends JFrame {
                                 textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
-                        JOptionPane.showMessageDialog(null, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
                     } catch (ParseException ex) {
-                        System.out.println("Falló el método Parse: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(this, "Los datos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else if (comboTipoAfiliacion.getSelectedItem().toString().equals("Beneficiario")) {
@@ -328,12 +328,12 @@ public class RegistrarAB extends JFrame {
                                 comboTipoIDAfiRelacionado.getSelectedItem().toString(), Long.valueOf(textoIDAfiRela.getText()));
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
-                        JOptionPane.showMessageDialog(null, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
                     } catch (ParseException ex) {
-                        System.out.println("Falló el método Parse: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(this, "Los datos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
