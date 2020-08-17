@@ -96,7 +96,7 @@ public class AfiliadoDAO extends DAO {
     }
 
     public void eliminarCita(long iDUsuario, long iDCita) throws SQLException {
-        String consulta = "DELETE FROM cita WHERE k_cita = ? AND k_numeroDocumentoab = ?;";
+        String consulta = "UPDATE cita SET n_estado = 'Disponible', k_tipodocumentoab = null, k_numerodocumentoab = null WHERE k_cita = ? AND k_numerodocumentoab = ?;";
         PreparedStatement st = conexion.prepareStatement(consulta);
         st.setLong(1, iDCita);
         st.setLong(2, iDUsuario);

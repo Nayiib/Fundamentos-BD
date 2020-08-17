@@ -338,7 +338,6 @@ public class RegistrarAB extends JFrame {
                 }
             }
         });
-
         panel.add(Titulo);
         panel.add(labelDatosAB);
         panel.add(labelTipoIdentificacion);

@@ -48,12 +48,10 @@ public class DAO {
     }
 
     public boolean getUser(String tabla, String tipo, long id) throws SQLException {
-
         String consulta = "SELECT * FROM " + tabla + " WHERE k_tipodocumento = ? AND k_numerodocumento = ?;";
         PreparedStatement st = conexion.prepareStatement(consulta);
         st.setString(1, tipo);
         st.setLong(2, id);
-
         ResultSet user = st.executeQuery();
         while (user.next()) {
 
@@ -66,9 +64,7 @@ public class DAO {
                     return true;
                 }
             }
-
         }
-
         return false;
     }
 
