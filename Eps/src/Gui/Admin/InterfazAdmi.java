@@ -1,13 +1,11 @@
 package Gui.Admin;
 
-import Gui.Admin.RegistrarMedico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -27,7 +25,7 @@ public class InterfazAdmi extends JFrame {
         panel = new JPanel();
         panel.setLayout(null);
         getContentPane().add(panel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
