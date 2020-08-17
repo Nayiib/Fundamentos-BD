@@ -116,7 +116,7 @@ public class IniciarSesion extends JFrame {
                 try {
                     if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()));
+                        InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()), tipoDocumento);
                         medico.setVisible(true);
                         medico.setLocationRelativeTo(null);
                     } else {
