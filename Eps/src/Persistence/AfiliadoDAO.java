@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
-import Controllers.ControladorConsulCitas;
 
 public class AfiliadoDAO extends DAO {
 

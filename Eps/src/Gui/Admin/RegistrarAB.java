@@ -1,4 +1,4 @@
-package Gui.AfiliadoBeneficiario;
+package Gui.Admin;
 
 import Models.Afiliado;
 import Persistence.DAO;

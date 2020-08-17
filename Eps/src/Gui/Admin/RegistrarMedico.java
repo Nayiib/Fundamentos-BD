@@ -46,6 +46,7 @@ public class RegistrarMedico extends JFrame implements ActionListener {
         panel.setLayout(null);
         this.getContentPane().add(panel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     public void mostrar() {
@@ -197,7 +198,7 @@ public class RegistrarMedico extends JFrame implements ActionListener {
             AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
             agregarEspecialidad.setLocationRelativeTo(null);
             agregarEspecialidad.setVisible(true);
-
+            dispose();
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
         } catch(NumberFormatException a){

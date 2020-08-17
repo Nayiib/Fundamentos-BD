@@ -1,6 +1,5 @@
 package Gui.Admin;
 
-import Gui.AfiliadoBeneficiario.RegistrarAB;
 import Gui.Admin.RegistrarMedico;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,21 +13,23 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class InterfazAdmi extends JFrame {
-    
+
     private JPanel panel;
-    
-    public InterfazAdmi(){
+
+    public InterfazAdmi() {
         this.initCompo();
         this.mostrar();
     }
-    
+
     public void initCompo() {
         setSize(600, 270);
         setTitle("Opciones del administrador");
         panel = new JPanel();
         panel.setLayout(null);
-        this.getContentPane().add(panel);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().add(panel);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void mostrar() {
@@ -63,7 +64,5 @@ public class InterfazAdmi extends JFrame {
                 IRegisAB.setLocationRelativeTo(null);
             }
         });
-
     }
-
 }
