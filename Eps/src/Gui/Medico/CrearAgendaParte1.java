@@ -4,19 +4,33 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import Persistence.AgendaDAO;
 
 
 public class CrearAgendaParte1 extends JFrame{
-    public JPanel panel;
-    
-    public CrearAgendaParte1(){
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	public JPanel panel;
+    private AgendaDAO agenda;
+    private long idMedicoC;
+    private String tipoDocumentoC;
+    private long idAgendaC;
+
+    public CrearAgendaParte1(long idMedico, String tipodocumento, long idAgenda){
+        idMedicoC = idMedico;
+        tipoDocumentoC = tipodocumento;
+        idAgendaC = idAgenda;
+        agenda = AgendaDAO.getReference();
         initCompo();
         mostrar();
     }
@@ -27,7 +41,7 @@ public class CrearAgendaParte1 extends JFrame{
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public void mostrar(){
@@ -62,9 +76,14 @@ public class CrearAgendaParte1 extends JFrame{
         Continuar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CrearAgendaParte2 Cont = new CrearAgendaParte2();
-                Cont.setVisible(true);
-                Cont.setLocationRelativeTo(null);  
+                try {
+                    agenda.registrarAgenda(idMedicoC, tipoDocumentoC, idAgendaC, Integer.parseInt(CMAgen.getText()), Integer.parseInt(CAAgen.getText()));
+                    CrearAgendaParte2 Cont = new CrearAgendaParte2(idMedicoC, tipoDocumentoC, idAgendaC, Integer.parseInt(CMAgen.getText()), Integer.parseInt(CAAgen.getText()) );
+                    Cont.setVisible(true);
+                    Cont.setLocationRelativeTo(null);
+                } catch(SQLException z) {
+                    System.out.println(z.getMessage());
+                }
             }	
         });
         
