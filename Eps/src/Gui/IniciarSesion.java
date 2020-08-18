@@ -138,7 +138,7 @@ public class IniciarSesion extends JFrame {
                 try {
                     if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
-                        InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(Long.valueOf(CID.getText()));
+                        InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(tipoDocumento, Long.valueOf(CID.getText()));
                         AB.setVisible(true);
                         AB.setLocationRelativeTo(null);
                     } else {

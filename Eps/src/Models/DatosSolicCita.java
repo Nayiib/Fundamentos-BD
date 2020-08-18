@@ -4,7 +4,7 @@ package Models;
 public class DatosSolicCita {
     
     private String medicoTratante, fecha, hora, sede, direccion;
-    private int consultorio;
+    private int consultorio, idCita;
 
     public String getMedicoTratante() {
         return medicoTratante;
@@ -29,13 +29,18 @@ public class DatosSolicCita {
     public int getConsultorio() {
         return consultorio;
     }
+
+    public int getIdCita() {
+        return idCita;
+    }
     
-    public DatosSolicCita(String medicoTratante, String fecha, String hora, String sede, String direccion, int consultorio){
+    public DatosSolicCita(String medicoTratante, String fecha, String hora, String sede, String direccion, int consultorio, int idCita){
         this.medicoTratante = medicoTratante;
         this.fecha = fecha;
         this.hora = hora;
         this.sede = sede;
         this.direccion = direccion;
         this.consultorio = consultorio;
+        this.idCita = idCita;
     }
 }

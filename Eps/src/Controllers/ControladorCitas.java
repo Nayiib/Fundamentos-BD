@@ -5,14 +5,10 @@ import Models.DatosSolicCita;
 
 public class ControladorCitas {
     
-    ArrayList<DatosSolicCita> arregloCitas = new ArrayList<DatosSolicCita>();
+    ArrayList<DatosSolicCita> arregloCitas;
     
-    public ControladorCitas(){
-        DatosSolicCita citaTemp = new DatosSolicCita("Yuliana", "hoyxd", "2:30", "Calle 48", "kjhdfkl", 201);
-        DatosSolicCita citaTemp1 = new DatosSolicCita("Julian", "otrodia", "2:50", "Calle 48", "hsjkhskh", 221);
-        arregloCitas.add(citaTemp);
-        arregloCitas.add(citaTemp1);
-        
+    public ControladorCitas(ArrayList<DatosSolicCita> arregloCitas){
+        this.arregloCitas = arregloCitas;
     }
     
     public DatosSolicCita obtenerCita(int numCita){
