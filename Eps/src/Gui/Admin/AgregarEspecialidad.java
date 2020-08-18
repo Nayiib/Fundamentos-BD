@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import Models.Medico;
 import Models.EspecialidadMedicoConsultorio;
 import java.awt.event.ItemEvent;
+import javafx.scene.control.Cell;
 
 public class AgregarEspecialidad extends JFrame implements ActionListener {
 
@@ -186,6 +187,10 @@ public class AgregarEspecialidad extends JFrame implements ActionListener {
                             controller.getIDSede(CSede.getSelectedItem().toString()), String.valueOf(horario.getSelectedItem()));
                     especialidades.add(object);
                     verif = true;
+                    horario.setSelectedItem("");
+                    CEspe.setSelectedItem("");
+                    CSede.setSelectedItem("");
+                    CConsul.setSelectedItem("");
                 } catch (SQLException ex) {
                     System.out.println("Fallo SQL:" + ex.getMessage());
                 }

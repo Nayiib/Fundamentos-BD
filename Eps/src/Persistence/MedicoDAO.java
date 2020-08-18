@@ -24,7 +24,6 @@ public class MedicoDAO extends DAO {
     }
 
     public void registrarDiagnostico(long idRegistro, String diagnostico, String preinscripcion, long idCita) throws SQLException {
-
         String query = "INSERT INTO registro VALUES (?,?,?,?);";
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setLong(1, idCita);
@@ -32,11 +31,9 @@ public class MedicoDAO extends DAO {
         ps.setString(3, preinscripcion);
         ps.setLong(4, idCita);
         ps.execute();
-
     }
 
     public DatosDiagnostico getDatosDiagnostico(long idCita) {
-
         DatosDiagnostico datos = null;
         try {
             String query = "SELECT usuario.n_nombre,medico.k_numerodocumento,cita.f_cita,cita.h_final\n"
@@ -52,30 +49,20 @@ public class MedicoDAO extends DAO {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setLong(1, idCita);
             ResultSet iterator = ps.executeQuery();
-
             while (iterator.next()) {
                 datos = new DatosDiagnostico(iterator.getString(1), iterator.getLong(2), iterator.getDate(3), iterator.getTime(4));
             }
-
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
         return datos;
-
     }
-    
-    public void agregarEspecialidad(int idEspecialidad,String nombre) throws SQLException {
 
+    public void agregarEspecialidad(int idEspecialidad, String nombre) throws SQLException {
         String query = "INSERT INTO especialidad VALUES (?,?);";
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setInt(1, idEspecialidad);
-        ps.setString(2,nombre);
+        ps.setString(2, nombre);
         ps.execute();
-
     }
-    
-    
-
 }
-

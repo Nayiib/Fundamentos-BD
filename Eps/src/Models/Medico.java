@@ -11,7 +11,6 @@ public class Medico extends Usuario {
         super(tipoDocumento, numeroDocumento, nombreUsuario, sexo, fechaNacimiento, telefonoContacto, telefonoCelular, correo, epsKey);
         this.registroMedico = registroMedico;
     }
-
     
     public String getRegistroMedico(){
         return this.registroMedico;

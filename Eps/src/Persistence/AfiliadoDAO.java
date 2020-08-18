@@ -44,35 +44,35 @@ public class AfiliadoDAO extends DAO {
         arregloTocho.add(arregloTipos);
         return arregloTocho;
     }
-    
+
     public ArrayList consultarCitas2(long iDUsuario, Date fecha) throws SQLException {
-        String comandoSQL = "SELECT especialidad.n_nombreespecialidad, tipo_cita.n_nombretipocita, usuario.n_nombre, " +
-"		h_inicial, sede.n_nombresede, sede.n_direccion, " +
-"		especialidad_medico_consultorio.k_numeroconsultorio " +
-"FROM cita, afiliado_beneficiario, tipo_cita, especialidad, medico, " +
-"		especialidad_medico_consultorio, usuario, sede " +
-"WHERE cita.k_numerodocumentoab = afiliado_beneficiario.k_numerodocumento " +
-"AND cita.k_tipocita=tipo_cita.k_tipocita " +
-"AND especialidad_medico_consultorio.k_especialidad = especialidad.k_especialidad " +
-"AND especialidad_medico_consultorio.k_sede = sede.k_sede " +
-"AND especialidad_medico_consultorio.k_numerodocumento = medico.k_numerodocumento " +
-"AND usuario.k_numerodocumento = medico.k_numerodocumento " +
-"AND cita.k_especialidad = especialidad.k_especialidad " +
-"AND cita.k_numerodocumentomedico = medico.k_numerodocumento " +
-"AND cita.f_cita=? " +
-"AND afiliado_beneficiario.k_numerodocumento=?; ";
+        String comandoSQL = "SELECT especialidad.n_nombreespecialidad, tipo_cita.n_nombretipocita, usuario.n_nombre, "
+                + "		h_inicial, sede.n_nombresede, sede.n_direccion, "
+                + "		especialidad_medico_consultorio.k_numeroconsultorio "
+                + "FROM cita, afiliado_beneficiario, tipo_cita, especialidad, medico, "
+                + "		especialidad_medico_consultorio, usuario, sede "
+                + "WHERE cita.k_numerodocumentoab = afiliado_beneficiario.k_numerodocumento "
+                + "AND cita.k_tipocita=tipo_cita.k_tipocita "
+                + "AND especialidad_medico_consultorio.k_especialidad = especialidad.k_especialidad "
+                + "AND especialidad_medico_consultorio.k_sede = sede.k_sede "
+                + "AND especialidad_medico_consultorio.k_numerodocumento = medico.k_numerodocumento "
+                + "AND usuario.k_numerodocumento = medico.k_numerodocumento "
+                + "AND cita.k_especialidad = especialidad.k_especialidad "
+                + "AND cita.k_numerodocumentomedico = medico.k_numerodocumento "
+                + "AND cita.f_cita=? "
+                + "AND afiliado_beneficiario.k_numerodocumento=?; ";
         PreparedStatement ps = conexion.prepareStatement(comandoSQL);
         ps.setDate(1, fecha);
         ps.setLong(2, iDUsuario);
         ResultSet rs = ps.executeQuery();
-        
+
         ArrayList<DatosConsulCita> arregloCitas2 = new ArrayList<DatosConsulCita>();
-        
+
         while (rs.next()) {
-            DatosConsulCita citaTemp = new DatosConsulCita(rs.getString(1),rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+            DatosConsulCita citaTemp = new DatosConsulCita(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
             arregloCitas2.add(citaTemp);
         }
-        
+
         return arregloCitas2;
     }
 
@@ -94,7 +94,7 @@ public class AfiliadoDAO extends DAO {
         return retorno;
     }
 
-    public void eliminarCita(long iDUsuario, long iDCita) throws SQLException {
+    public void actualizarCita(long iDUsuario, long iDCita) throws SQLException {
         String consulta = "UPDATE cita SET n_estado = 'Disponible', k_tipodocumentoab = null, k_numerodocumentoab = null WHERE k_cita = ? AND k_numerodocumentoab = ?;";
         PreparedStatement st = conexion.prepareStatement(consulta);
         st.setLong(1, iDCita);
@@ -115,6 +115,5 @@ public class AfiliadoDAO extends DAO {
         st.setLong(1, iDCita);
         st.executeUpdate();
     }
-
 
 }

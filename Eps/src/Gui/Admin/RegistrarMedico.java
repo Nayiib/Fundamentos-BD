@@ -187,7 +187,6 @@ public class RegistrarMedico extends JFrame {
                 Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
                         Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
                         fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
-
                 AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
                 agregarEspecialidad.setLocationRelativeTo(null);
                 agregarEspecialidad.setVisible(true);
