@@ -191,7 +191,7 @@ public class CancelarCita extends JFrame {
                             String[] split = citas.getSelectedItem().toString().split("    - - -");
                             control.eliminarPago(Integer.valueOf(split[0]));
                             control.eliminarRegistro(Integer.valueOf(split[0]));
-                            control.eliminarCita(iDAfiliadoRef, Integer.valueOf(split[0]));
+                            control.actualizarCita(iDAfiliadoRef, Integer.valueOf(split[0]));
                             JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente", "Estado cancelación", JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                         } catch (SQLException ex) {
