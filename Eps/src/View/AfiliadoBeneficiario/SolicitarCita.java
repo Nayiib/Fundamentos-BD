@@ -1,4 +1,4 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
 import Models.DatosConsulCita;
 import Models.DatosSolicCita;

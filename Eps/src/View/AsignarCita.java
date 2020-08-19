@@ -1,5 +1,5 @@
 
-package Gui;
+package View;
 
 
 import java.awt.Color;

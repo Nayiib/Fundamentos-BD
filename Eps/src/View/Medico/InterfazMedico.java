@@ -1,6 +1,6 @@
-package Gui.Medico;
+package View.Medico;
 
-import Gui.Medico.CrearAgendaParte1;
+import View.Medico.CrearAgendaParte1;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

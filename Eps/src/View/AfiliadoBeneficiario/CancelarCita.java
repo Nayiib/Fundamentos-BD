@@ -1,4 +1,4 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
 import Persistence.AfiliadoDAO;
 import java.awt.BasicStroke;

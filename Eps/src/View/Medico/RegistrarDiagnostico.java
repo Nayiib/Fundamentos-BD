@@ -1,4 +1,4 @@
-package Gui.Medico;
+package View.Medico;
 
 //Elementos Graficos
 import javax.swing.JFrame;
@@ -123,7 +123,7 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
 
         this.idCita = idCita;
         setLayout(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(new Dimension(ANCHO, ALTO));
         setMinimumSize(new Dimension(ANCHO, ALTO));
         setMaximumSize(new Dimension(ANCHO, ALTO));
@@ -141,6 +141,7 @@ public class RegistrarDiagnostico extends JFrame implements ActionListener {
             txtDiagnostico.setText("");
             txtSintomas.setText("");
             txtPreinscrpcion.setText("");
+            dispose();
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Error", JOptionPane.ERROR_MESSAGE);
