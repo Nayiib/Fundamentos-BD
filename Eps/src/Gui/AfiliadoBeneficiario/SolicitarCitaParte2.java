@@ -13,20 +13,26 @@ import Controllers.ControladorCitas;
 import Models.DatosSolicCita;
 import Persistence.AfiliadoDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+
 public class SolicitarCitaParte2 extends JFrame implements ActionListener {
     public JPanel panel;
     ControladorCitas controlador;
     private AfiliadoDAO control;
+    private java.util.Date fechaUtil;
+    private java.sql.Date fechaSQL;
+    SimpleDateFormat formatterDateSQL = new SimpleDateFormat("yyyy-MM-dd");
     
     private String TDA;
     private long iDAfiliado;
     
-    JLabel MT = new JLabel("Médico tratante:");
+    JLabel MT = new JLabel("Medico tratante:");
     JLabel MMT = new JLabel();
     JLabel Fecha = new JLabel("Fecha:");
     JLabel MFecha = new JLabel();
@@ -34,7 +40,7 @@ public class SolicitarCitaParte2 extends JFrame implements ActionListener {
     JLabel MH = new JLabel();
     JLabel Sede = new JLabel("Sede:");
     JLabel MSede = new JLabel();
-    JLabel Dirc = new JLabel("Dirección:");
+    JLabel Dirc = new JLabel("Direcci�n:");
     JLabel MDirc = new JLabel();
     JLabel Consul = new JLabel("Consultorio:");
     JLabel MConsul = new JLabel();
@@ -152,12 +158,21 @@ public class SolicitarCitaParte2 extends JFrame implements ActionListener {
         }
         if (ae.getSource().equals(Confi)){
             try {
+                    fechaUtil = formatterDateSQL.parse(controlador.obtenerCita(i).getFecha());
+                    fechaSQL = new java.sql.Date(fechaUtil.getTime());
+                } catch (ParseException ex) {
+                    System.out.println("Fallo el metodo Parse: " + ex.getMessage());
+                }
+            try {
                 control.AñadirABCita(controlador.obtenerCita(i).getIdCita(), TDA, iDAfiliado);
                 long cuota = control.CuotaPagar(iDAfiliado);
-                JOptionPane.showMessageDialog(panel, "Exitoso " + "Su copago a realizar es de:  "+ cuota, "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                long idPago = control.crearPagoID();
+                control.CrearPagoCita(idPago, fechaSQL,controlador.obtenerCita(i).getIdCita());   
+                JOptionPane.showMessageDialog(panel, "Exitoso " + "Su copago a realizar es de:  "+ cuota);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(panel, "No se pudo añadir", "Estado consulta", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
 }
+

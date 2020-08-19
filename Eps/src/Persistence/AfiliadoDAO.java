@@ -7,12 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
-<<<<<<< HEAD
+
 import Controllers.ControladorConsulCitas;
 import Models.DatosSolicCita;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
-=======
->>>>>>> 8005d0e1817c93a6874def606db79d78538c15a8
+import java.util.Random;
+
 
 public class AfiliadoDAO extends DAO {
 
@@ -164,6 +164,32 @@ public class AfiliadoDAO extends DAO {
         st.setString(1, TidUsuario);
         st.setLong(2, iDUsuario);
         st.setLong(3, idCita);
+        st.executeUpdate();
+    }
+    
+    public long crearPagoID() throws SQLException{
+        Random r = new Random();
+        long valorID = r.nextInt(9999);
+        String query = "SELECT * FROM pago;";
+        PreparedStatement ps = conexion.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            if (rs.getInt("k_pago") == valorID) {
+                valorID = r.nextInt(999999);
+            }
+        }
+        return valorID;
+    }
+    
+    public void CrearPagoCita(long idPago, Date fecha, long idCita) throws SQLException {
+        String consulta = "INSERT INTO pago (k_pago, n_estado, f_pago, f_limitepago, k_cita) " +
+                            "VALUES " +
+                            "(?, 'Pendiente de pago', NULL, ?, ?);";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setLong(1, idPago);
+        st.setDate(2, fecha);
+        st.setLong(3, idCita);
+        
         st.executeUpdate();
     }
     

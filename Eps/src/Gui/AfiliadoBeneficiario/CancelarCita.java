@@ -36,7 +36,7 @@ public class CancelarCita extends JFrame {
     public CancelarCita(long iDAfiliado) {
         iDAfiliadoRef = iDAfiliado;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setTitle("Eliminar Cita");
+        setTitle("Cancelar cita");
         setSize(new Dimension(660, 475));
         GenerarPanel();
         setVisible(true);
@@ -75,7 +75,7 @@ public class CancelarCita extends JFrame {
         }
 
         public void GenerarInterfaz() {
-            titulo = new JLabel("ELIMINAR UNA CITA");
+            titulo = new JLabel("CANCELAR UNA CITA");
             fechaCita = new JLabel("Elija la fecha de la cita:");
             elijaCita = new JLabel("ID y tipo de su cita:");
             idCita = new JLabel("Hora de inicio de su cita:");

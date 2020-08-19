@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -55,7 +56,10 @@ public class SolicitarCita extends JFrame{
         Espc.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(Espc);
         
-        JTextField CEspc = new JTextField();
+        JComboBox CEspc = new JComboBox();
+        CEspc.addItem("Odontologia");
+        CEspc.addItem("Medicina general");
+        CEspc.addItem("Optometria");
         CEspc.setBounds(305, 95, 200, 20);
         panel.add(CEspc);
         
@@ -64,7 +68,11 @@ public class SolicitarCita extends JFrame{
         TpCita.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(TpCita);
         
-        JTextField CF = new JTextField();
+        JComboBox CF = new JComboBox();
+        CF.addItem("Prioritaria");
+        CF.addItem("Primera vez");
+        CF.addItem("Control");
+        CF.addItem("Lectura exámenes");
         CF.setBounds(305, 125, 200, 20);
         panel.add(CF);
         
@@ -75,23 +83,32 @@ public class SolicitarCita extends JFrame{
         Buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 ArrayList<DatosSolicCita> arreglo = new ArrayList<DatosSolicCita>();
                 ArrayList<String> arreglo1 = new ArrayList<String>();
                 ArrayList<String> arreglo2 = new ArrayList<String>();
+                
+                String Especialidad =  String.valueOf(CEspc.getSelectedItem());
+                String TipoCita =  String.valueOf(CF.getSelectedItem());
+                
                 try {
-                    arreglo1 = control.verificarCondiciones(iDAfiliado, CEspc.getText());
-                    arreglo1 = control.verificarCondiciones2(iDAfiliado);
-                    if (arreglo1.isEmpty() && arreglo.isEmpty()) {
-                        arreglo = control.consultarCitasDisponibles(CEspc.getText(), CF.getText());
-                        if (arreglo.isEmpty()) {
-                            JOptionPane.showMessageDialog(panel, "No se encontraron citas disponibles", "Estado consulta", JOptionPane.WARNING_MESSAGE);
-                        } else {
-                                SolicitarCitaParte2 Aconscita = new SolicitarCitaParte2(TDA, iDAfiliado, arreglo);
-                                Aconscita.setVisible(true);
-                                Aconscita.setLocationRelativeTo(null);
-                            }
+                    arreglo1 = control.verificarCondiciones(iDAfiliado, Especialidad);
+                    arreglo2 = control.verificarCondiciones2(iDAfiliado);
+                    if (arreglo1.isEmpty()) {
+                        if(arreglo2.isEmpty()){
+                            arreglo = control.consultarCitasDisponibles(Especialidad, TipoCita);
+                            if (arreglo.isEmpty()) {
+                                JOptionPane.showMessageDialog(panel, "No se encontraron citas disponibles", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                    SolicitarCitaParte2 Aconscita = new SolicitarCitaParte2(TDA, iDAfiliado, arreglo);
+                                    Aconscita.setVisible(true);
+                                    Aconscita.setLocationRelativeTo(null);
+                                }
+                        }else{
+                            JOptionPane.showMessageDialog(panel, "Tiene una cita pendiente de pago", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                        }
                     } else {
-                            JOptionPane.showMessageDialog(panel, "Ya tiene una cita asignada a esta especialidad o pendiente de pago", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(panel, "Ya tiene una cita asignada a esta especialidad", "Estado consulta", JOptionPane.WARNING_MESSAGE);
                         }
                     }    
                 catch (SQLException ex) {
