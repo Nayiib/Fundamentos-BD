@@ -59,7 +59,8 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
         ACita.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SolicitarCita ISoliCita = new SolicitarCita(TipoAfiliadoRef, iDAfiliadoRef);
+              
+                AsignarCita ISoliCita = new AsignarCita(TipoAfiliadoRef, iDAfiliadoRef);
                 ISoliCita.setVisible(true);
                 ISoliCita.setLocationRelativeTo(null);
             }

@@ -1,4 +1,4 @@
-package Gui.Medico;
+package View.Medico;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,11 +16,9 @@ import Persistence.AgendaDAO;
 
 
 public class CrearAgendaParte1 extends JFrame{
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	public JPanel panel;
+    
+    
+    public JPanel panel;
     private AgendaDAO agenda;
     private long idMedicoC;
     private String tipoDocumentoC;

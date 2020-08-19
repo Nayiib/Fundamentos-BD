@@ -1,9 +1,8 @@
-package Gui.Admin;
+package View.Admin;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -187,7 +186,6 @@ public class RegistrarMedico extends JFrame {
                 Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
                         Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
                         fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
-
                 AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
                 agregarEspecialidad.setLocationRelativeTo(null);
                 agregarEspecialidad.setVisible(true);

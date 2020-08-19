@@ -1,4 +1,4 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
 
 import java.awt.Font;
@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 

@@ -1,7 +1,7 @@
-package Gui.Admin;
+package View.Admin;
 
 import Models.Afiliado;
-import Persistence.DAO;
+import Persistence.AdministradorDAO;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -25,14 +25,14 @@ import javax.swing.text.MaskFormatter;
 public class RegistrarAB extends JFrame {
 
     private JPanel panel;
-    private DAO control;
+    private AdministradorDAO control;
     java.util.Date fechaUtil;
     java.sql.Date fechaSQL;
 
     public RegistrarAB() {
         initCompo();
         mostrar();
-        control = DAO.getReference();
+        control = AdministradorDAO.getReference();
         setAlwaysOnTop(true);
     }
 
@@ -304,7 +304,7 @@ public class RegistrarAB extends JFrame {
                                 textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
-                        JOptionPane.showMessageDialog(this, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Registro exitoso", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());

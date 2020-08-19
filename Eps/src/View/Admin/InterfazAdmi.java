@@ -1,6 +1,5 @@
-package Gui.Admin;
+package View.Admin;
 
-import Gui.Admin.RegistrarMedico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

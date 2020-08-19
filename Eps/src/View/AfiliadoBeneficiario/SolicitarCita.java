@@ -1,23 +1,21 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
 import Models.DatosConsulCita;
 import Models.DatosSolicCita;
 import Persistence.AfiliadoDAO;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
@@ -27,12 +25,16 @@ public class SolicitarCita extends JFrame{
     private AfiliadoDAO control;
     private String TDA;
     private long iDAfiliado;
+    private JButton botonVolver;
+    private JComboBox<String> CEspc,CF;
     
     public SolicitarCita(String TDA, long iDAfiliado){
         this.TDA = TDA;
         this.iDAfiliado = iDAfiliado;
         initCompo();
         mostrar();
+        SolicitarEspecialidades();
+        SolicitarTipos();
     }
     
     public void initCompo(){
@@ -42,6 +44,32 @@ public class SolicitarCita extends JFrame{
         panel.setLayout(null);
         this.getContentPane().add(panel);
         control = AfiliadoDAO.getReference();
+    }
+    
+    private void SolicitarEspecialidades() {
+        try {
+            CEspc.addItem("");
+            ArrayList<String> nombresEspecialidades = new ArrayList<String>();
+            nombresEspecialidades = control.getEspecialidades();
+            nombresEspecialidades.forEach(nombreEsp -> {
+                CEspc.addItem(nombreEsp);
+            });
+        } catch (SQLException ex) {
+            System.out.println("Fallo SQL: " + ex.getMessage());
+        }
+    }
+    
+    private void SolicitarTipos(){
+        try{
+            CF.addItem("");
+            ArrayList<String> nombresTipos = new ArrayList<String>();
+            nombresTipos = control.getTiposCitas();
+            nombresTipos.forEach(nombreEsp -> {
+                CF.addItem(nombreEsp);
+            });
+        }catch(SQLException e){
+            System.out.println("Fallo SQL: " + e.getMessage());
+        }
     }
     
     public void mostrar(){
@@ -56,10 +84,14 @@ public class SolicitarCita extends JFrame{
         Espc.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(Espc);
         
+<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
         JComboBox CEspc = new JComboBox();
         CEspc.addItem("Odontologia");
         CEspc.addItem("Medicina general");
         CEspc.addItem("Optometria");
+=======
+        CEspc = new JComboBox<>();
+>>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
         CEspc.setBounds(305, 95, 200, 20);
         panel.add(CEspc);
         
@@ -68,17 +100,34 @@ public class SolicitarCita extends JFrame{
         TpCita.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(TpCita);
         
+<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
         JComboBox CF = new JComboBox();
         CF.addItem("Prioritaria");
         CF.addItem("Primera vez");
         CF.addItem("Control");
         CF.addItem("Lectura exámenes");
+=======
+        CF = new JComboBox<>();
+>>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
         CF.setBounds(305, 125, 200, 20);
         panel.add(CF);
         
         JButton Buscar = new JButton("Buscar citas disponibles");
-        Buscar.setBounds(200, 165, 200, 30);
+        Buscar.setBounds(305, 165, 200, 30);
         panel.add(Buscar);
+        
+        botonVolver = new JButton("Volver");
+        botonVolver.setSize(new Dimension(100,30));
+        botonVolver.setLocation(90,165);
+        panel.add(botonVolver);
+        
+        botonVolver.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                dispose();
+            }
+            
+        });
         
         Buscar.addActionListener(new ActionListener() {
             @Override
@@ -92,6 +141,7 @@ public class SolicitarCita extends JFrame{
                 String TipoCita =  String.valueOf(CF.getSelectedItem());
                 
                 try {
+<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
                     arreglo1 = control.verificarCondiciones(iDAfiliado, Especialidad);
                     arreglo2 = control.verificarCondiciones2(iDAfiliado);
                     if (arreglo1.isEmpty()) {
@@ -107,6 +157,19 @@ public class SolicitarCita extends JFrame{
                         }else{
                             JOptionPane.showMessageDialog(panel, "Tiene una cita pendiente de pago", "Estado consulta", JOptionPane.WARNING_MESSAGE);
                         }
+=======
+                    arreglo1 = control.verificarCondiciones(iDAfiliado, String.valueOf(CEspc.getSelectedItem()));
+                    arreglo1 = control.verificarCondiciones2(iDAfiliado);
+                    if (arreglo1.isEmpty() && arreglo.isEmpty()) {
+                        arreglo = control.consultarCitasDisponibles(String.valueOf(CEspc.getSelectedItem()), String.valueOf(CF.getSelectedItem()));
+                        if (arreglo.isEmpty()) {
+                            JOptionPane.showMessageDialog(panel, "No se encontraron citas disponibles", "Estado consulta", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                                SolicitarCitaParte2 Aconscita = new SolicitarCitaParte2(TDA, iDAfiliado, arreglo);
+                                Aconscita.setVisible(true);
+                                Aconscita.setLocationRelativeTo(null);
+                            }
+>>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
                     } else {
                             JOptionPane.showMessageDialog(panel, "Ya tiene una cita asignada a esta especialidad", "Estado consulta", JOptionPane.WARNING_MESSAGE);
                         }

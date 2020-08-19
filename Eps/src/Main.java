@@ -1,5 +1,4 @@
-
-import Gui.IniciarSesion;
+import View.IniciarSesion;
 
 public class Main {
 

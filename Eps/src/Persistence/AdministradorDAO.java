@@ -1,6 +1,9 @@
 package Persistence;
 
+import Models.Afiliado;
 import Models.EspecialidadMedicoConsultorio;
+import Models.Medico;
+import Models.Usuario;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,6 +118,53 @@ public class AdministradorDAO extends DAO {
             addEspecialidadMedicoConsultorio(list.get(i));
         }
 
+    }
+
+    public void registrarUsuario(Usuario usuario) throws SQLException {
+        String query = "INSERT INTO usuario VALUES(?,?,?,?,?,?,?,?,?);";
+        PreparedStatement st = conexion.prepareStatement(query);
+        st.setString(1, usuario.getTipoDocumento());
+        st.setLong(2, usuario.getNumeroDocumento());
+        st.setString(3, usuario.getNombreUsuario());
+        st.setString(4, usuario.getSexo());
+        st.setDate(5, usuario.getFechaNacimiento());
+        st.setLong(6, usuario.getTelefonoContacto());
+        st.setLong(7, usuario.getTelefonoCelular());
+        st.setString(8, usuario.getCorreo());
+        st.setInt(9, usuario.getEpsKey());
+        st.execute();
+    }
+
+    public void registrarMedico(Medico medico) throws SQLException {
+        String query = "INSERT INTO medico VALUES(?,?,?);";
+        PreparedStatement st = conexion.prepareStatement(query);
+        st.setString(1, medico.getTipoDocumento());
+        st.setLong(2, medico.getNumeroDocumento());
+        st.setString(3, medico.getRegistroMedico());
+        st.execute();
+    }
+
+    public void registrarAB(Afiliado ABReferencia) throws SQLException {
+        String comandoSQL = ("INSERT INTO afiliado_beneficiario  VALUES (?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement ps = conexion.prepareStatement(comandoSQL);
+        ps.setString(1, ABReferencia.getTipoDocumento());
+        ps.setLong(2, ABReferencia.getNumeroDocumento());
+        ps.setString(3, ABReferencia.getTipoAfiliacion());
+        ps.setString(4, ABReferencia.getEstado());
+        if (ABReferencia.getCategoria().equals("A")) {
+            ps.setInt(5, 1);
+        } else if (ABReferencia.getCategoria().equals("B")) {
+            ps.setInt(5, 2);
+        } else if (ABReferencia.getCategoria().equals("C")) {
+            ps.setInt(5, 3);
+        }
+        ps.setString(6, ABReferencia.getTipoDocumentoAfiliado());
+        if (ABReferencia.getNumeroDocumentoAfiliado() == 0) {
+            ps.setNull(7, java.sql.Types.INTEGER);
+        } else {
+            ps.setLong(7, ABReferencia.getNumeroDocumentoAfiliado());
+        }
+        ps.execute();
     }
 
 }
