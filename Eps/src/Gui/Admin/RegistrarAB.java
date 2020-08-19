@@ -33,7 +33,6 @@ public class RegistrarAB extends JFrame {
         initCompo();
         mostrar();
         control = DAO.getReference();
-        setAlwaysOnTop(true);
     }
 
     public void initCompo() {
@@ -304,7 +303,7 @@ public class RegistrarAB extends JFrame {
                                 textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
                         control.registrarUsuario(afiliado);
                         control.registrarAB(afiliado);
-                        JOptionPane.showMessageDialog(this, "Registración exitosa", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Registro exitoso", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (SQLException ex) {
                         System.out.println("Fallo SQL: " + ex.getMessage());
