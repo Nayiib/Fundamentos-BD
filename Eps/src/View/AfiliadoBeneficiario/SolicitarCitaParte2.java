@@ -1,4 +1,4 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
 
 import java.awt.Font;
@@ -14,8 +14,6 @@ import Models.DatosSolicCita;
 import Persistence.AfiliadoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class SolicitarCitaParte2 extends JFrame implements ActionListener {

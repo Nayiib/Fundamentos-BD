@@ -1,4 +1,4 @@
-package Gui.Medico;
+package View.Medico;
 
 import java.awt.Color;
 import java.awt.Font;

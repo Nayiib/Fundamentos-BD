@@ -1,4 +1,4 @@
-package Gui.Admin;
+package View.Admin;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import Models.Medico;
 import Models.EspecialidadMedicoConsultorio;
 import java.awt.event.ItemEvent;
-import javafx.scene.control.Cell;
 
 public class AgregarEspecialidad extends JFrame implements ActionListener {
 
@@ -153,7 +152,7 @@ public class AgregarEspecialidad extends JFrame implements ActionListener {
             System.out.println("Fallo SQL: " + ex.getMessage());
         }
     }
-
+  
     public boolean VerificarChecks() {
         if (horario.getSelectedItem().toString().equals("") || CEspe.getSelectedItem().toString().equals("") || CSede.getSelectedItem().toString().equals("") || CConsul.getSelectedItem().toString().equals("")) {
             return false;

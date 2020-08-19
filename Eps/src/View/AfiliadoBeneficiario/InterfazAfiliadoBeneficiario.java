@@ -1,8 +1,8 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
-import Gui.AfiliadoBeneficiario.CancelarCita;
-import Gui.AfiliadoBeneficiario.ConsultarCita;
-import Gui.AfiliadoBeneficiario.SolicitarCita;
+import View.AfiliadoBeneficiario.CancelarCita;
+import View.AfiliadoBeneficiario.ConsultarCita;
+import View.AfiliadoBeneficiario.SolicitarCita;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

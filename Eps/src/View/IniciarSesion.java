@@ -1,8 +1,8 @@
-package Gui;
+package View;
 
-import Gui.Admin.InterfazAdmi;
-import Gui.Medico.InterfazMedico;
-import Gui.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
+import View.Admin.InterfazAdmi;
+import View.Medico.InterfazMedico;
+import View.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;

@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
-import Controllers.ControladorConsulCitas;
 import Models.DatosSolicCita;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 public class AfiliadoDAO extends DAO {
 
@@ -65,6 +63,7 @@ public class AfiliadoDAO extends DAO {
                 + "AND cita.k_numerodocumentomedico = medico.k_numerodocumento "
                 + "AND cita.f_cita=? "
                 + "AND afiliado_beneficiario.k_numerodocumento=?; ";
+
         PreparedStatement ps = conexion.prepareStatement(comandoSQL);
         ps.setDate(1, fecha);
         ps.setLong(2, iDUsuario);
@@ -180,6 +179,32 @@ public class AfiliadoDAO extends DAO {
         }
 
         return cuota;
+    }
+
+    public ArrayList<String> getEspecialidades() throws SQLException {
+
+        ArrayList<String> nombresEspecialidades = new ArrayList<String>();
+        String consulta = "SELECT n_nombreespecialidad FROM especialidad;";
+        PreparedStatement ps = conexion.prepareStatement(consulta);
+        ResultSet result = ps.executeQuery();
+
+        while (result.next()) {
+            nombresEspecialidades.add(result.getString("n_nombreespecialidad"));
+        }
+        return nombresEspecialidades;
+    }
+
+    public ArrayList<String> getTiposCitas() throws SQLException {
+
+        ArrayList<String> nombreTipos = new ArrayList<String>();
+        String consulta = "SELECT n_nombreTipoCita FROM tipo_cita;";
+        PreparedStatement ps = conexion.prepareStatement(consulta);
+        ResultSet result = ps.executeQuery();
+
+        while (result.next()) {
+            nombreTipos.add(result.getString("n_nombreTipoCita"));
+        }
+        return nombreTipos;
     }
 
     public Time consultarHora(long iDUsuario, Date fecha, int iDCita) throws SQLException {
