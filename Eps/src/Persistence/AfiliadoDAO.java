@@ -7,16 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
-<<<<<<< HEAD
 
 import Controllers.ControladorConsulCitas;
 import Models.DatosSolicCita;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.util.Random;
 
-=======
 import Models.DatosSolicCita;
->>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4
+
 
 public class AfiliadoDAO extends DAO {
 
@@ -172,7 +170,6 @@ public class AfiliadoDAO extends DAO {
         st.setLong(3, idCita);
         st.executeUpdate();
     }
-<<<<<<< HEAD
     
     public long crearPagoID() throws SQLException{
         Random r = new Random();
@@ -200,17 +197,13 @@ public class AfiliadoDAO extends DAO {
         st.executeUpdate();
     }
     
-    public long CuotaPagar(long idUsuario)throws SQLException {
-        String comandoSQL = "SELECT q_precio FROM afiliado_beneficiario, categoria " +
-                            "WHERE afiliado_beneficiario.k_numerodocumento =? " +
-                            "AND afiliado_beneficiario.k_categoria = categoria.k_categoria; ";
-=======
+    
+      
 
     public long CuotaPagar(long idUsuario) throws SQLException {
         String comandoSQL = "SELECT q_precio FROM afiliado_beneficiario, categoria "
                 + "WHERE afiliado_beneficiario.k_numerodocumento =? "
                 + "AND afiliado_beneficiario.k_categoria = categoria.k_categoria; ";
->>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4
         PreparedStatement ps = conexion.prepareStatement(comandoSQL);
         ps.setLong(1, idUsuario);
         ResultSet rs = ps.executeQuery();

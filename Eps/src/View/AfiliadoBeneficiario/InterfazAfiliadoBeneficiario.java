@@ -1,8 +1,8 @@
-package Gui.AfiliadoBeneficiario;
+package View.AfiliadoBeneficiario;
 
-import Gui.AfiliadoBeneficiario.CancelarCita;
-import Gui.AfiliadoBeneficiario.ConsultarCita;
-import Gui.AfiliadoBeneficiario.SolicitarCita;
+import View.AfiliadoBeneficiario.CancelarCita;
+import View.AfiliadoBeneficiario.ConsultarCita;
+import View.AfiliadoBeneficiario.SolicitarCita;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -60,7 +60,7 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
               
-                AsignarCita ISoliCita = new AsignarCita(TipoAfiliadoRef, iDAfiliadoRef);
+                SolicitarCita ISoliCita = new SolicitarCita(TipoAfiliadoRef, iDAfiliadoRef);
                 ISoliCita.setVisible(true);
                 ISoliCita.setLocationRelativeTo(null);
             }

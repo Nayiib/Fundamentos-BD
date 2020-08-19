@@ -83,15 +83,8 @@ public class SolicitarCita extends JFrame{
         Espc.setBounds(100, 90, 100, 30);
         Espc.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(Espc);
-        
-<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
-        JComboBox CEspc = new JComboBox();
-        CEspc.addItem("Odontologia");
-        CEspc.addItem("Medicina general");
-        CEspc.addItem("Optometria");
-=======
+
         CEspc = new JComboBox<>();
->>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
         CEspc.setBounds(305, 95, 200, 20);
         panel.add(CEspc);
         
@@ -99,16 +92,8 @@ public class SolicitarCita extends JFrame{
         TpCita.setBounds(100, 120, 300, 30);
         TpCita.setFont(new Font("Serif", Font.BOLD, 14)); 
         panel.add(TpCita);
-        
-<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
-        JComboBox CF = new JComboBox();
-        CF.addItem("Prioritaria");
-        CF.addItem("Primera vez");
-        CF.addItem("Control");
-        CF.addItem("Lectura exámenes");
-=======
+
         CF = new JComboBox<>();
->>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
         CF.setBounds(305, 125, 200, 20);
         panel.add(CF);
         
@@ -141,7 +126,6 @@ public class SolicitarCita extends JFrame{
                 String TipoCita =  String.valueOf(CF.getSelectedItem());
                 
                 try {
-<<<<<<< HEAD:Eps/src/Gui/AfiliadoBeneficiario/SolicitarCita.java
                     arreglo1 = control.verificarCondiciones(iDAfiliado, Especialidad);
                     arreglo2 = control.verificarCondiciones2(iDAfiliado);
                     if (arreglo1.isEmpty()) {
@@ -157,19 +141,6 @@ public class SolicitarCita extends JFrame{
                         }else{
                             JOptionPane.showMessageDialog(panel, "Tiene una cita pendiente de pago", "Estado consulta", JOptionPane.WARNING_MESSAGE);
                         }
-=======
-                    arreglo1 = control.verificarCondiciones(iDAfiliado, String.valueOf(CEspc.getSelectedItem()));
-                    arreglo1 = control.verificarCondiciones2(iDAfiliado);
-                    if (arreglo1.isEmpty() && arreglo.isEmpty()) {
-                        arreglo = control.consultarCitasDisponibles(String.valueOf(CEspc.getSelectedItem()), String.valueOf(CF.getSelectedItem()));
-                        if (arreglo.isEmpty()) {
-                            JOptionPane.showMessageDialog(panel, "No se encontraron citas disponibles", "Estado consulta", JOptionPane.WARNING_MESSAGE);
-                        } else {
-                                SolicitarCitaParte2 Aconscita = new SolicitarCitaParte2(TDA, iDAfiliado, arreglo);
-                                Aconscita.setVisible(true);
-                                Aconscita.setLocationRelativeTo(null);
-                            }
->>>>>>> 475dbc8731215363a4e6410be68f220fa6cd25a4:Eps/src/View/AfiliadoBeneficiario/SolicitarCita.java
                     } else {
                             JOptionPane.showMessageDialog(panel, "Ya tiene una cita asignada a esta especialidad", "Estado consulta", JOptionPane.WARNING_MESSAGE);
                         }
