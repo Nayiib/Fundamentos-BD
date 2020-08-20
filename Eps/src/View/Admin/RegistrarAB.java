@@ -299,11 +299,30 @@ public class RegistrarAB extends JFrame {
                     try {
                         fechaUtil = formatterDateSQL.parse(textoFechaNacimiento.getText());
                         fechaSQL = new java.sql.Date(fechaUtil.getTime());
-                        Afiliado afiliado = new Afiliado(comboTipoID.getSelectedItem().toString(), Long.valueOf(textoID.getText()), textoNombres.getText() + " " + textoApellidos.getText(),
-                                comboSexo.getSelectedItem().toString(), fechaSQL, Long.valueOf(textoTelefonoCasa.getText()), Long.valueOf(textoTelefonoCelular.getText()),
-                                textoCorreo.getText(), 1, comboTipoAfiliacion.getSelectedItem().toString(), comboEstado.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString());
+                        Long tel = Long.valueOf(0);
+                        if (textoTelefonoCasa.getText() == null){
+                            tel = Long.valueOf(textoTelefonoCasa.getText());
+                        }
+
+                        Afiliado afiliado = new Afiliado(
+                                comboTipoID.getSelectedItem().toString(),
+                                Long.valueOf(textoID.getText()),
+                                textoNombres.getText() + " " + textoApellidos.getText(),
+                                comboSexo.getSelectedItem().toString(),
+                                fechaSQL,
+                                tel,
+                                Long.valueOf(textoTelefonoCelular.getText()),
+                                textoCorreo.getText(),
+                                1,
+                                comboTipoAfiliacion.getSelectedItem().toString(),
+                                comboEstado.getSelectedItem().toString(),
+                                comboCategoria.getSelectedItem().toString()
+                        );
+                        System.out.println("asdas 1");
                         control.registrarUsuario(afiliado);
+                        System.out.println("asdas 2");
                         control.registrarAB(afiliado);
+                        System.out.println("asdas 3");
                         JOptionPane.showMessageDialog(this, "Registro exitoso", "Estado registro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch (SQLException ex) {
