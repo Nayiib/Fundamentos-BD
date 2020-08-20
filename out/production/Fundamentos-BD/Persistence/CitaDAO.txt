@@ -1,0 +1,147 @@
+package Persistence;
+
+import Models.EspecialidadMedicoConsultorio;
+import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class CitasDAO extends DAO {
+
+    private static CitasDAO administrador;
+
+    private CitasDAO() {
+        super();
+    }
+
+    public static CitasDAO getReference() {
+        if (administrador == null) {
+            administrador = new CitasDAO();
+        }
+        return administrador;
+    }
+
+    // public int getIDSede(String nombreSede) throws SQLException {
+
+    //     int idSede = 0;
+    //     String consulta = "SELECT k_sede FROM sede WHERE n_nombreSede = ? ";
+    //     PreparedStatement ps = conexion.prepareStatement(consulta);
+    //     ps.setString(1, nombreSede);
+    //     ResultSet result = ps.executeQuery();
+
+    //     while (result.next()) {
+    //         idSede = result.getInt(1);
+    //     }
+
+    //     return idSede;
+
+    // }
+
+    // public int getIDEspecialidad(String nombreEspecialidad) throws SQLException {
+
+    //     int idEspecialidad = 0;
+    //     String consulta = "SELECT k_especialidad FROM especialidad WHERE especialidad.n_nombreespecialidad = ? ";
+    //     PreparedStatement ps = conexion.prepareStatement(consulta);
+    //     ps.setString(1, nombreEspecialidad);
+    //     ResultSet result = ps.executeQuery();
+
+    //     while (result.next()) {
+    //         idEspecialidad = result.getInt(1);
+    //     }
+
+    //     return idEspecialidad;
+
+    // }
+
+    // public ArrayList<String> getEspecialidades() throws SQLException {
+
+    //     ArrayList<String> nombresEspecialidades = new ArrayList<String>();
+    //     String consulta = "SELECT n_nombreespecialidad FROM especialidad;";
+    //     PreparedStatement ps = conexion.prepareStatement(consulta);
+    //     ResultSet result = ps.executeQuery();
+
+    //     while (result.next()) {
+    //         nombresEspecialidades.add(result.getString("n_nombreespecialidad"));
+    //     }
+    //     return nombresEspecialidades;
+    // }
+
+    // public ArrayList<String> getSedes() throws SQLException {
+
+    //     ArrayList<String> nombresSedes = new ArrayList<String>();
+    //     String consulta = "SELECT n_nombresede FROM sede;";
+    //     PreparedStatement ps = conexion.prepareStatement(consulta);
+    //     ResultSet result = ps.executeQuery();
+
+    //     while (result.next()) {
+    //         nombresSedes.add(result.getString("n_nombresede"));
+    //     }
+    //     return nombresSedes;
+
+    // }
+
+    public ArrayList<String> getCitasDisponibles(int nose, int nose2) throws SQLException {
+
+
+        // Objeto con la info
+        ArrayList<String> citasDisponibles = new ArrayList<String>();
+
+        // consulta 
+        String consulta = "SELECT especialidad, tipo_cita, nombre_medico FROM cita "
+                + "WHERE consultorio.k_sede=sede.k_sede "
+                + "AND sede.n_nombresede=?;";
+
+        //Se prepara la consulta
+        PreparedStatement ps = conexion.prepareStatement(consulta);
+        
+        // Se reemplaza los valores de consulta
+        ps.setString(1, nose);
+        
+        // Se ejecuta
+        ResultSet result = ps.executeQuery();
+
+        while (result.next()) {
+            valor[] = {result.getString("especialidad"), result.getString("tipo_cita"), result.getString("nombre_medico")}
+            system.out.println(valor)
+            citasDisponibles.add(valor);
+        }
+            system.out.println(citasDisponibles)
+        return citasDisponibles;
+    }
+
+
+    public void AñadirABCita(long idCita, String TidUsuario, long iDUsuario) throws SQLException {
+        String consulta = "UPDATE cita SET n_estado = 'No Disponible', k_tipodocumentoab =?, "
+                + "k_numerodocumentoab =? "
+                + "WHERE k_cita =? ;";
+        PreparedStatement st = conexion.prepareStatement(consulta);
+        st.setString(1, TidUsuario);
+        st.setLong(2, iDUsuario);
+        st.setLong(3, idCita);
+        st.executeUpdate();
+    }
+
+    // private void addEspecialidadMedicoConsultorio(EspecialidadMedicoConsultorio element) throws SQLException {
+
+    //     String consulta = "INSERT INTO Especialidad_Medico_Consultorio VALUES(?,?,?,?,?,?)";
+    //     PreparedStatement ps = conexion.prepareStatement(consulta);
+    //     ps.setInt(1, element.getIdEspecialidad());
+    //     ps.setString(2, element.getTipoDocumento());
+    //     ps.setLong(3, element.getNumeroDocumento());
+    //     ps.setLong(4, element.getNumeroConsultorio());
+    //     ps.setInt(5, element.getIdSede());
+    //     ps.setString(6, element.getHorario());
+
+    //     ps.execute();
+
+    // }
+
+    // public void agregarEspecialidadesMedico(ArrayList<EspecialidadMedicoConsultorio> list) throws SQLException {
+
+    //     for (int i = 0; i < list.size(); i++) {
+    //         addEspecialidadMedicoConsultorio(list.get(i));
+    //     }
+
+    // }
+
+}
