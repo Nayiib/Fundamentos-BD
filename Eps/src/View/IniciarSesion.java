@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.ControladorIniciarSesion;
 import View.Admin.InterfazAdmi;
 import View.Medico.InterfazMedico;
 import View.AfiliadoBeneficiario.InterfazAfiliadoBeneficiario;
@@ -26,12 +27,12 @@ import java.sql.SQLException;
 public class IniciarSesion extends JFrame {
 
     private JPanel panel;
-    private DAO controlador;
+    private ControladorIniciarSesion controlador;
 
-    public IniciarSesion() {
+    public IniciarSesion(ControladorIniciarSesion c) {
         initCompo();
         mostrar();
-        controlador = DAO.getReference();
+        controlador = c;
     }
 
     public void initCompo() {
@@ -103,7 +104,7 @@ public class IniciarSesion extends JFrame {
         JButton botonBack = new JButton("Salir");
         botonBack.setBounds(15, 250, 100, 30);
         botonBack.addActionListener((ActionEvent ae) -> {
-            controlador.cerrarConexion();
+            controlador.cerrarSesion();
             System.exit(0);
         });
         panel.add(botonBack);
@@ -122,7 +123,7 @@ public class IniciarSesion extends JFrame {
             String tipoDocumento = String.valueOf(MTipo.getSelectedItem());
             if (tipoUsuario.equals("Medico")) {
                 try {
-                    if (controlador.getUser("medico", tipoDocumento, Long.parseLong(Id))) {
+                    if (controlador.obtenerUsuario("medico", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
                         InterfazMedico medico = new InterfazMedico(Long.valueOf(CID.getText()), tipoDocumento);
                         medico.setVisible(true);
@@ -130,14 +131,12 @@ public class IniciarSesion extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch (SQLException aex) {
-                    JOptionPane.showMessageDialog(null, "Verifique que sus datos esten correctos", "Estado login", JOptionPane.ERROR_MESSAGE);
                 } catch (NumberFormatException aex) {
                     JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (tipoUsuario.equals("Afiliado/Beneficiario")) {
                 try {
-                    if (controlador.getUser("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
+                    if (controlador.obtenerUsuario("afiliado_beneficiario", tipoDocumento, Long.parseLong(Id))) {
                         IniciarSesion.this.setVisible(false);
                         InterfazAfiliadoBeneficiario AB = new InterfazAfiliadoBeneficiario(tipoDocumento, Long.valueOf(CID.getText()));
                         AB.setVisible(true);
@@ -145,8 +144,6 @@ public class IniciarSesion extends JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Estado login", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch (SQLException aex) {
-                    JOptionPane.showMessageDialog(null, "Ha habido un problema verifique que los datos son correctos o que su usuario este activo ", "Estado login", JOptionPane.ERROR_MESSAGE);
                 } catch (NumberFormatException aex) {
                     JOptionPane.showMessageDialog(null, "Rellene correctamente todos los campos obligatorios", "Estado login", JOptionPane.ERROR_MESSAGE);
                 }
