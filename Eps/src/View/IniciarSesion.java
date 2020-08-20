@@ -100,14 +100,15 @@ public class IniciarSesion extends JFrame {
         ISesion.setLocation(220, 200);
         panel.add(ISesion);
 
-        JButton botonBack = new JButton("Exit");
+        JButton botonBack = new JButton("Salir");
         botonBack.setBounds(15, 250, 100, 30);
         botonBack.addActionListener((ActionEvent ae) -> {
+            controlador.cerrarConexion();
             System.exit(0);
         });
         panel.add(botonBack);
 
-        JButton Adminview = new JButton("Admin view");
+        JButton Adminview = new JButton("Admin");
         Adminview.setSize(new Dimension(150, 30));
         Adminview.setLocation(432, 250);
         Adminview.addActionListener((ActionEvent ae) -> {

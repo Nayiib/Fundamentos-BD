@@ -1,5 +1,6 @@
 package View.Medico;
 
+import Persistence.DAO;
 import View.Medico.CrearAgendaParte1;
 import java.awt.Color;
 import java.awt.Font;
@@ -50,6 +51,13 @@ public class InterfazMedico extends JFrame {
         CreaAgen.setBounds(200, 70, 200, 30);
         panel.add(CreaAgen);
 
+        JButton botonBack = new JButton("Salir");
+        botonBack.addActionListener((ActionEvent ae) -> {
+            DAO.cerrarConexion();
+            System.exit(0);
+        });
+        botonBack.setBounds(200, 120, 80, 30);
+        panel.add(botonBack);
 
         CreaAgen.addActionListener(new ActionListener() {
             @Override

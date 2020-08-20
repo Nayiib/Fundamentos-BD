@@ -1,5 +1,6 @@
 package View.AfiliadoBeneficiario;
 
+import Persistence.DAO;
 import View.AfiliadoBeneficiario.CancelarCita;
 import View.AfiliadoBeneficiario.ConsultarCita;
 import View.AfiliadoBeneficiario.SolicitarCita;
@@ -20,6 +21,7 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
     private JPanel panel;
     private long iDAfiliadoRef;
     private String TipoAfiliadoRef;
+
 
     public InterfazAfiliadoBeneficiario(String tDAfiliado, long iDAfiliado) {
         iDAfiliadoRef = iDAfiliado;
@@ -55,6 +57,15 @@ public class InterfazAfiliadoBeneficiario extends JFrame {
         JButton CanCita = new JButton("Cancelar una cita");
         CanCita.setBounds(200, 170, 200, 30);
         panel.add(CanCita);
+
+        JButton botonBack = new JButton("Salir");
+        botonBack.addActionListener((ActionEvent ae) -> {
+            DAO.cerrarConexion();
+            System.exit(0);
+        });
+        botonBack.setBounds(50, 170, 80, 30);
+        panel.add(botonBack);
+
 
         ACita.addActionListener(new ActionListener() {
             @Override

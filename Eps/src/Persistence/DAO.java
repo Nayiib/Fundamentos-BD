@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 
 public class DAO {
 
-    protected Connection conexion;
+    protected static Connection conexion;
     private static DAO controlador;
 
     protected DAO() {
@@ -34,9 +34,10 @@ public class DAO {
 
     }
 
-    public void cerrarConexion() {
+    public static void cerrarConexion() {
         try {
             conexion.close();
+            System.out.println("Cierre de conexion a la base de datos");
         } catch (SQLException ex) {
             System.out.println("Fallo: " + ex.getMessage());
         }
