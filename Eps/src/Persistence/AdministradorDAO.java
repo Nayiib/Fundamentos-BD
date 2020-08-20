@@ -128,7 +128,11 @@ public class AdministradorDAO extends DAO {
         st.setString(3, usuario.getNombreUsuario());
         st.setString(4, usuario.getSexo());
         st.setDate(5, usuario.getFechaNacimiento());
-        st.setLong(6, usuario.getTelefonoContacto());
+        if(usuario.getTelefonoContacto() == 0){
+            st.setNull(6,java.sql.Types.INTEGER);
+        }else{
+            st.setLong(6, usuario.getTelefonoContacto());
+        }
         st.setLong(7, usuario.getTelefonoCelular());
         st.setString(8, usuario.getCorreo());
         st.setInt(9, usuario.getEpsKey());

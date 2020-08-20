@@ -183,9 +183,19 @@ public class RegistrarMedico extends JFrame {
             try {
                 fechaUtil = formatterDateSQL.parse(CFN.getText());
                 fechaSQL = new java.sql.Date(fechaUtil.getTime());
-                Medico medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
+                String telefonoCasa = CTC.getText();
+                Medico medico = null;
+                
+                if(telefonoCasa.equals("")){
+                     medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
                         Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
-                        fechaSQL, Long.valueOf(CTC.getText()), Long.valueOf(CNC.getText()), Correo.getText(), 1);
+                        fechaSQL,0,Long.valueOf(CNC.getText()), Correo.getText(), 1);
+                }else{
+                    medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
+                        Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
+                        fechaSQL, Long.valueOf(telefonoCasa), Long.valueOf(CNC.getText()), Correo.getText(), 1);
+                }
+                              
                 AgregarEspecialidad agregarEspecialidad = new AgregarEspecialidad(medico);
                 agregarEspecialidad.setLocationRelativeTo(null);
                 agregarEspecialidad.setVisible(true);
@@ -193,7 +203,7 @@ public class RegistrarMedico extends JFrame {
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (NumberFormatException a) {
-                JOptionPane.showMessageDialog(null, "Los datos deben estar diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Asegurese que los datos estan bien diligenciados", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         panel.add(btn);
