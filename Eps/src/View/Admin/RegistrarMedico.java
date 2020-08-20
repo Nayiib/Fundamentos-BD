@@ -183,9 +183,11 @@ public class RegistrarMedico extends JFrame {
             try {
                 fechaUtil = formatterDateSQL.parse(CFN.getText());
                 fechaSQL = new java.sql.Date(fechaUtil.getTime());
-                String telefonoCasa = CTC.getText();
                 Medico medico = null;
-                
+                Long telefonoCasa = Long.valueOf(0);
+                if (CTC.getText() == null){
+                    telefonoCasa = Long.valueOf(CTC.getText());
+                }
                 if(telefonoCasa.equals("")){
                      medico = new Medico(CRM.getText(), String.valueOf(MTipo.getSelectedItem()),
                         Long.valueOf(CID.getText()), (CNom.getText() + " " + CApell.getText()), String.valueOf(MSexo.getSelectedItem()),
