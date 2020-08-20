@@ -10,10 +10,6 @@ public class ControladorIniciarSesion {
 
     private DAO dao;
 
-    public ControladorIniciarSesion(){
-        dao = DAO.getReference();
-    }
-
     public void iniciarApp(){
         IniciarSesion Ventana = new IniciarSesion(this);
         Ventana.setVisible(true);
@@ -26,9 +22,13 @@ public class ControladorIniciarSesion {
 
     public boolean obtenerUsuario (String tabla, String tipo, long id){
         try {
+            dao = DAO.getReference();
+            dao.establecerConexion();
             return dao.getUser(tabla, tipo, id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            dao.cerrarConexion();
         }
         return false;
     }
